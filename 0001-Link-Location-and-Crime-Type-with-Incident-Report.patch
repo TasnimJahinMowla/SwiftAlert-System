@@ -1,0 +1,1221 @@
+From dfb003ad35f42f43bc0d23fcd10e09d676d728b9 Mon Sep 17 00:00:00 2001
+From: Tasnim Jahin Mowla <138311941+TasnimJahinMowla@users.noreply.github.com>
+Date: Sat, 28 Oct 2023 09:49:06 +0000
+Subject: [PATCH] Link Location and Crime Type with Incident Report
+
+---
+ myProject/db.sqlite3                          | Bin 151552 -> 151552 bytes
+ .../myApp/__pycache__/views.cpython-310.pyc   | Bin 3513 -> 3721 bytes
+ myProject/myApp/templates/myApp/report.html   |  17 +-
+ myProject/myApp/views.py                      |  17 +-
+ .../__pycache__/settings.cpython-310.pyc      | Bin 2474 -> 2166 bytes
+ myProject/myProject/settings.py               |  19 +-
+ .../Unipath-1.1.dist-info/INSTALLER           |   1 +
+ .../Unipath-1.1.dist-info/METADATA            |  31 ++
+ .../Unipath-1.1.dist-info/RECORD              |  16 +
+ .../Unipath-1.1.dist-info/REQUESTED           |   0
+ .../site-packages/Unipath-1.1.dist-info/WHEEL |   5 +
+ .../Unipath-1.1.dist-info/top_level.txt       |   1 +
+ .../site-packages/unipath/__init__.py         |  16 +
+ .../__pycache__/__init__.cpython-310.pyc      | Bin 0 -> 1037 bytes
+ .../__pycache__/abstractpath.cpython-310.pyc  | Bin 0 -> 6949 bytes
+ .../__pycache__/errors.cpython-310.pyc        | Bin 0 -> 594 bytes
+ .../unipath/__pycache__/path.cpython-310.pyc  | Bin 0 -> 10695 bytes
+ .../unipath/__pycache__/tools.cpython-310.pyc | Bin 0 -> 1119 bytes
+ .../site-packages/unipath/abstractpath.py     | 226 ++++++++++++
+ .../site-packages/unipath/errors.py           |   8 +
+ .../python3.10/site-packages/unipath/path.py  | 341 ++++++++++++++++++
+ .../python3.10/site-packages/unipath/tools.py |  33 ++
+ 22 files changed, 714 insertions(+), 17 deletions(-)
+ create mode 100644 myvenv/lib/python3.10/site-packages/Unipath-1.1.dist-info/INSTALLER
+ create mode 100644 myvenv/lib/python3.10/site-packages/Unipath-1.1.dist-info/METADATA
+ create mode 100644 myvenv/lib/python3.10/site-packages/Unipath-1.1.dist-info/RECORD
+ create mode 100644 myvenv/lib/python3.10/site-packages/Unipath-1.1.dist-info/REQUESTED
+ create mode 100644 myvenv/lib/python3.10/site-packages/Unipath-1.1.dist-info/WHEEL
+ create mode 100644 myvenv/lib/python3.10/site-packages/Unipath-1.1.dist-info/top_level.txt
+ create mode 100644 myvenv/lib/python3.10/site-packages/unipath/__init__.py
+ create mode 100644 myvenv/lib/python3.10/site-packages/unipath/__pycache__/__init__.cpython-310.pyc
+ create mode 100644 myvenv/lib/python3.10/site-packages/unipath/__pycache__/abstractpath.cpython-310.pyc
+ create mode 100644 myvenv/lib/python3.10/site-packages/unipath/__pycache__/errors.cpython-310.pyc
+ create mode 100644 myvenv/lib/python3.10/site-packages/unipath/__pycache__/path.cpython-310.pyc
+ create mode 100644 myvenv/lib/python3.10/site-packages/unipath/__pycache__/tools.cpython-310.pyc
+ create mode 100644 myvenv/lib/python3.10/site-packages/unipath/abstractpath.py
+ create mode 100644 myvenv/lib/python3.10/site-packages/unipath/errors.py
+ create mode 100644 myvenv/lib/python3.10/site-packages/unipath/path.py
+ create mode 100644 myvenv/lib/python3.10/site-packages/unipath/tools.py
+
+diff --git a/myProject/db.sqlite3 b/myProject/db.sqlite3
+index d5b2aef87857b2322c7581ca74a5fb70c162e2f9..6e306ed5311a88f1c7261032d9400a27c49fff03 100644
+GIT binary patch
+delta 751
+zcmZXSL1+^}6oz+pQ<7~>o@tw6YeT28P->g(?rhRzBT|CsMe9ktlw!BpX%gIQ!kV;(
+zTC8{}cu{)Ti%9Vz6hUhbIS3Vmo{9&dRXoIk9zwkc1@WMQlg84512fE<`M>wid(7gB
+zxVR!dJdLzRy%$<EE;9CM&3M|^8RTIPrr<Tq!UK2?S0D&vy&ntE({Vx=M)^vrSiF(8
+zb9q{-6e)koE5wkKGErwhXm1mS{t3)NS})}a7QZ|t1(3KrD-H0lz5G~8bZ{Kkn8(Nc
+zx>T)8C|K+gVT*%b@B_ZXSNO<Y@*cLJw(c*kL3@jUkViaNJ&o1vc4{xs;BjV;Q8mUf
+z>WFb2Fs=i}<*wG=puv+}qPNb$2Y3dzLG%6bZTgmc<K8+e^qu#vA&MLX(Huf4a!I%I
+z8NEdLiTO}Et6LdrgpznZG?SyIaf@vyLMfZ-I9)JkXaqL{OV88L<if(F$3<kKh7~zX
+z5?I!f>S$7lN3?j9#ABL=xdg=FhKoX!7&FifgQa(_?;`)1L%l3VRHDj>(Q|I5?{4bH
+z%eFyn$G3}m{7qpr8Py_+szjqob@MYC>-X@m#K8_Mu}0j1@ymP**L~011g~W&E?cHP
+zH&Zro(WZH7<Vvha1K-S<X3oms!VE506lcqM-NMtfaWq}Qx>YD;sU2~4fR~uTYQtca
+z89agEA!ZN=o^Mog*fXL=;;~WX?Mr-h1Z%90M4YhTqO;S-kF>E5z{7?B8}Nl?cm>Xe
+z#1EY972KR(6-BX<VXY%!nS=?!N;FAGQkGlcH-q*$_zC+}zs!GwF2N;;h-b-M|6jHq
+GUH%19YQ|3h
+
+delta 352
+zcmZozz}c{XbAmLZ=|mZ4R#OJOtP2}c7RiekG4a3TPvGCpU&i0fzlQ$`zYo9BW<>)D
+zepU%yW>d!Ljya4XqD(?O%-Wo}m5v1k@ySJ*xv3?U1*wx0^hFujCYR}}FflMpo}+Ie
+zEXd8Q300MopPX2dnV;AETz~s>eMZ>=0XF`-4E(?Ozw*E5e+;zp?q<P;ll;@~u4hz7
+zmU;=4gh*|_yB{bez{Yo!f&Uu+a{dZ_OTNE+M>i`fY~<U1^d6(VA{!(BRR;d6K!Z;6
+zPru5~q>m~f&!of6f1iPoe;)(?KK^~11q(LuPv57{q@txLZp_Ka8IqBjR$^peWUOmw
+vplf8IU|?cpWMXAtz{URusOdWc|9AfHK(k--i?T3tG6Ma`z=9#g36}x@O-^fL
+
+diff --git a/myProject/myApp/__pycache__/views.cpython-310.pyc b/myProject/myApp/__pycache__/views.cpython-310.pyc
+index b6222203230d1e6416d40d1410d12f98644b6d29..23d4bae52bcf6f868caa7fcc488275c546d2d2cb 100644
+GIT binary patch
+delta 510
+zcmYL_yG|QH6ozMZ?Pa|?1{PC*Y<%G+Eg)_J6afK3sz_0qG|@Dc<ypa^8Lu_F4agP+
+zG&D%owiLh%q)3(LKs4LsA<{;i16DZF`R3O-8vXyw@AA#eXjCjZ1WG*b2an!hv|>!r
+z!OGJYBC0Z{@;t9BZc!qLaHOqDyad`7HCa_PUQ=~mR}J2H-H*s|<#7*mT{Nx<pB1y;
+zi9h#?(a@gq4V?oQod@`4W`B*^tt5;(=})&@X;VxvEC#0y{TVv8X*wwUSvJpd_s#?9
+z7m|^oa(acHBfLAK?<Q`Kh>4ziWrAHP?K^)jeIqN#p+lUxZ5^thnVffn_`*}?pSs;O
+z9dsj|tez%H`b?L>OM8e4Vhb^Ys3OJ?+lU=R9gvwVDPLa%w;MR!MeHFykROEbv3JvE
+zr=<eDkGqeE0|2+fPCFDqC((yEJ3`DM=Ko^>RA#*;6`<qIbb~FGOotk#L9Kr*ua9B;
+m4gOd#N~beRMIw;#TmJXJ$LUFNk*=q=Mc*0EF*->ZWyT9GVQ#Yk
+
+delta 284
+zcmeB_-6_qN&&$ij00fc8ZBifcPvnzfy2CJ0=Q6KcihK)0lw68JFoUMzW)H?p4w+;|
+zkU}Wn1kxNp><q-kFBm3qJ>=%9VMq~dW&&yun#{xf)wW77x6-koK))!pAit<YFQX(k
+zN0Ylq8mOU25JboTiCY{#`N@eTnfZA|vLG=z5Wx>5CZFV#mMu~Maan+bCTEc%h;0rc
+zEI@?m<a!=aQ%exj3Pe}~i71ZDyyVQ3)Vz`+6_6O1PzADXu|XUW4`df>OuoUR#mQJ?
+f59Ii1%5N6sWn^S3vY)Kar^cu;IgC$}iH8LM4j?<R
+
+diff --git a/myProject/myApp/templates/myApp/report.html b/myProject/myApp/templates/myApp/report.html
+index e8fcacc..e1cd6d1 100644
+--- a/myProject/myApp/templates/myApp/report.html
++++ b/myProject/myApp/templates/myApp/report.html
+@@ -11,8 +11,21 @@
+             {% csrf_token %}
+             <textarea name="message" rows="5" placeholder="Description" required></textarea>
+             <input type="datetime-local" name="Time-Stamp" class="text-box" placeholder="Time-Stamp" required>
+-            <input type="text" name="Area Code" class="text-box" placeholder="Area Code" required>
+-            <input type="text" name="Crime Type" class="text-box" placeholder="Crime Type" required>
++
++            <!-- Area Code dropdown -->
++            <select name="Area Code" class="text-box" required>
++                {% for location in locations %}
++                    <option value="{{ location.area_code }}">{{ location.area_name }}</option>
++                {% endfor %}
++            </select>
++
++            <!-- Crime Type dropdown -->
++            <select name="Crime Type" class="text-box" required>
++                {% for crime_type in crime_types %}
++                    <option value="{{ crime_type.name }}">{{ crime_type.name }}</option>
++                {% endfor %}
++            </select>
++
+             <br><label for="Anonymity Status">Anonymity Status</label>
+             <input type="checkbox" id="Anonymity Status" name="Anonymity Status" required>
+             <input type="submit" name="submit" class="send-btn" value="Send">
+diff --git a/myProject/myApp/views.py b/myProject/myApp/views.py
+index a8f6c67..7de22c4 100644
+--- a/myProject/myApp/views.py
++++ b/myProject/myApp/views.py
+@@ -92,6 +92,11 @@ def emergency(request):
+     context={}
+     return render(request, "myApp/emergency.html")
+ 
++from django.shortcuts import render, redirect
++from django.http import JsonResponse
++from .models import Location, CrimeType, IncidentReport
++from django.contrib.auth.decorators import login_required
++
+ def report(request):
+     if request.method == 'POST':
+         description = request.POST.get('message')
+@@ -114,4 +119,14 @@ def report(request):
+         incident.save()
+ 
+         return JsonResponse({'message': 'Incident Report saved successfully', 'alert_type': 'success'})
+-    return render(request, "myApp/report.html")
+\ No newline at end of file
++
++    # Get the available options for the dropdowns
++    locations = Location.objects.all()
++    crime_types = CrimeType.objects.all()
++
++    context = {
++        'locations': locations,
++        'crime_types': crime_types,
++    }
++
++    return render(request, "myApp/report.html", context)
+diff --git a/myProject/myProject/__pycache__/settings.cpython-310.pyc b/myProject/myProject/__pycache__/settings.cpython-310.pyc
+index 7b4a4103bced6cd0417e6d1a461a6b4d00e1083f..13121160bfe82f5f6a9227cd480bddbfd12f73bf 100644
+GIT binary patch
+delta 417
+zcmX9(Jx{`55bnK{(n4FlzZ6|?VNeDW6B8Fr2*D^Zy4@hD-fJx>Ez-I;$lxz9T^*Fs
+zmC4CJVB+3?z#njO@CEO3_dNHNC-+|b$(g=kq$OdO-v|6te>NM_FHw<1;7Yhe=E8^}
+zgC$S6iII%S6=$yU-{*{{p5Rp_`3+E`B&JEhj4h#VOO%=c8Uj^;CTW<ZG-Yfcg_cue
+z1`d$<BHMsD%3_{!G|h933RQ`UFU$cfP>IT7sYI1kuC8*;0b9l*)v-itSQdg65mj2p
+z8a1%alfyOI5ZCJj7gB3;vHY;#f>=JY!drpbweJO?<%Pk5iP6Im4K2_1w;eB-ciAJ0
+za@v-8I3Bk{J{r4L$b<GgliY{ROq;HDf;-m<`EHBFN~hoL^*gcLKRoSB^tq*+fYNHj
+z%nzcE)ZPZB?mcHLG-GuzxN%%Q7@%r-*E|UQNt9N9m8OuNG$UO*HqHfAL0`EUSz7N8
+DmW*h~
+
+delta 748
+zcmb7CJ8u&~5Wc;f&-TT3oH%bgXp2aZCF0|yC`2?7c_<N>NQh>2(&^$EpV!=r+f7g^
+z3(?UbS4b%!C2e|I{s2Pg8fyLk6$R@&fR@$ne6!Nb_kBCspVg1GN?a~mnp*EZKfv$h
+zx0S}=le&S%G$5b{B-EKsM)_DU78)!^G}O_2P2T4}X#GOJz=~in3vz7S*I3Edz&s<Y
+ztT3;z0tGe!MX-DVIZzc)IwPDw`PA?Ut3riM!UR;Y2$OXUrcQNE*kB53Fs+JeFmn-S
+zFX9|0zQJlR&!%C4%_zZHb>?7^%|o3nV6MLi4b@(UrKei+hSwsRW^MJo$d9Q&DS6}z
+z+Kp2ho*blcA3KsJm)NqbU5qgGBmzA=8PFBDXj}Cl<PjCpOXXGR3Oy2vh+gsDYu#zB
+zsrH=_ZJZ+Ikx~df$>WHsEqh#P@&Iot3uyJEOvHw5L);OqOO0y_oj9~HvK65{ka5C0
+z!oD_bU-HWy((X|Z(0~g`<L=)_c@Zcj<S9M&f+H0FBbH+KAE6(kk1*3DnQ`FBp2A`$
+zj@0`jDb5?@jlQ%0aKm{fFcr@F`mNjR&XWkYQhtoi7K-P}xAXKR@5;>pQ|bJfv&uG;
+z#E}>#fts;!&cBV_CrcI_w#18oOT63EGjqGWyVu^%jP~Z^?R5Oy&OIWfcC(S?U02P^
+zb%(FawR%=?-O)T<H_N9e;@}uFGx1W4<nW96%Uo9e)8*mU{QmfXN)4@4Dv|1NwXpXa
+D?{MW)
+
+diff --git a/myProject/myProject/settings.py b/myProject/myProject/settings.py
+index ad2bd6f..4523e4a 100644
+--- a/myProject/myProject/settings.py
++++ b/myProject/myProject/settings.py
+@@ -1,19 +1,10 @@
+-"""
+-Django settings for myProject project.
+-
+-Generated by 'django-admin startproject' using Django 4.2.6.
+-
+-For more information on this file, see
+-https://docs.djangoproject.com/en/4.2/topics/settings/
+-
+-For the full list of settings and their values, see
+-https://docs.djangoproject.com/en/4.2/ref/settings/
+-"""
+ 
++import os
+ from pathlib import Path
+ from django.contrib.messages import constants as messages
++from unipath import Path
+ # Build paths inside the project like this: BASE_DIR / 'subdir'.
+-BASE_DIR = Path(__file__).resolve().parent.parent
++BASE_DIR = Path(__file__).ancestor(2)
+ 
+ 
+ # Quick-start development settings - unsuitable for production
+@@ -55,7 +46,7 @@ ROOT_URLCONF = 'myProject.urls'
+ TEMPLATES = [
+     {
+         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+-        'DIRS': [r'C:\Users\88018\OneDrive\Desktop\SwiftAlert\myProject\myApp\templates\myApp'],
++        'DIRS': ['/workspaces/SwiftAlert/myProject/myApp/templates/myApp'],
+         'APP_DIRS': True,
+         'OPTIONS': {
+             'context_processors': [
+@@ -77,7 +68,7 @@ WSGI_APPLICATION = 'myProject.wsgi.application'
+ DATABASES = {
+     'default': {
+         'ENGINE': 'django.db.backends.sqlite3',
+-        'NAME': BASE_DIR / 'db.sqlite3',
++        'NAME': BASE_DIR + '/db.sqlite3',  # Use + for concatenation
+     }
+ }
+ 
+diff --git a/myvenv/lib/python3.10/site-packages/Unipath-1.1.dist-info/INSTALLER b/myvenv/lib/python3.10/site-packages/Unipath-1.1.dist-info/INSTALLER
+new file mode 100644
+index 0000000..a1b589e
+--- /dev/null
++++ b/myvenv/lib/python3.10/site-packages/Unipath-1.1.dist-info/INSTALLER
+@@ -0,0 +1 @@
++pip
+diff --git a/myvenv/lib/python3.10/site-packages/Unipath-1.1.dist-info/METADATA b/myvenv/lib/python3.10/site-packages/Unipath-1.1.dist-info/METADATA
+new file mode 100644
+index 0000000..777d183
+--- /dev/null
++++ b/myvenv/lib/python3.10/site-packages/Unipath-1.1.dist-info/METADATA
+@@ -0,0 +1,31 @@
++Metadata-Version: 2.1
++Name: Unipath
++Version: 1.1
++Summary: Object-oriented alternative to os/os.path/shutil
++Home-page: https://github.com/mikeorr/Unipath
++Author: Mike Orr
++Author-email: sluggoster@gmail.com
++License: MIT
++Keywords: os.path filename pathspec path files directories filesystem
++Classifier: License :: OSI Approved :: MIT License
++Classifier: Operating System :: OS Independent
++Classifier: Topic :: Software Development :: Libraries :: Python Modules
++Classifier: Topic :: Utilities
++Classifier: Programming Language :: Python
++Classifier: Programming Language :: Python :: 2
++Classifier: Programming Language :: Python :: 2.6
++Classifier: Programming Language :: Python :: 2.7
++Classifier: Programming Language :: Python :: 3
++Classifier: Programming Language :: Python :: 3.2
++Classifier: Programming Language :: Python :: 3.3
++Classifier: Programming Language :: Python :: 3.4
++
++Unipath is an object-oriented front end to the file/directory functions
++scattered throughout several Python library modules.  It's based on Jason
++Orendorff's *path.py* but has a friendlier API and higher-level features.
++Unipath is stable, well-tested, and has been used in production since 2008.
++It runs on Python 2.6+ and 3.3+.
++
++*Version 1.1* is a bugfix release. Most notably it fixes a Unicode
++incompatibility on Python 3 under Windows (or operating systems with native
++Unicpde filenames). The license is changed to MIT (from the Python license).
+diff --git a/myvenv/lib/python3.10/site-packages/Unipath-1.1.dist-info/RECORD b/myvenv/lib/python3.10/site-packages/Unipath-1.1.dist-info/RECORD
+new file mode 100644
+index 0000000..0e85e14
+--- /dev/null
++++ b/myvenv/lib/python3.10/site-packages/Unipath-1.1.dist-info/RECORD
+@@ -0,0 +1,16 @@
++Unipath-1.1.dist-info/INSTALLER,sha256=zuuue4knoyJ-UwPPXg8fezS7VCrXJQrAP7zeNuwvFQg,4
++Unipath-1.1.dist-info/METADATA,sha256=I6EZWhZ8sKiYsV_KdEghwt-BjYwt-mEdh17nX0c81kI,1430
++Unipath-1.1.dist-info/RECORD,,
++Unipath-1.1.dist-info/REQUESTED,sha256=47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU,0
++Unipath-1.1.dist-info/WHEEL,sha256=yQN5g4mg4AybRjkgi-9yy4iQEFibGQmlz78Pik5Or-A,92
++Unipath-1.1.dist-info/top_level.txt,sha256=cFZaKY4EUPuu-cC4HX2QjYKuIwWQxhuvy8Jv4vT6a2w,8
++unipath/__init__.py,sha256=EodH_gg1T1CQ20MBUnbzfKA6toBdb2jsIdQcmGVUmp8,489
++unipath/__pycache__/__init__.cpython-310.pyc,,
++unipath/__pycache__/abstractpath.cpython-310.pyc,,
++unipath/__pycache__/errors.cpython-310.pyc,,
++unipath/__pycache__/path.cpython-310.pyc,,
++unipath/__pycache__/tools.cpython-310.pyc,,
++unipath/abstractpath.py,sha256=WDcI83BpPIri3qwzN0dql0DGJKje9X4D9psQ1qFgCs0,8649
++unipath/errors.py,sha256=rmDcv_Z4DWVc9t5_sdn4uQXZGoWP1MA_XyiZJF89yo0,128
++unipath/path.py,sha256=tV5Dfg2Nro79HhbyBC6e_ZL48vx9PocJFvTbtWWIPUI,11009
++unipath/tools.py,sha256=NrsYzrBrwgpEIA2vu76P-jhBJumsqPg7z6ySY7KA1sg,900
+diff --git a/myvenv/lib/python3.10/site-packages/Unipath-1.1.dist-info/REQUESTED b/myvenv/lib/python3.10/site-packages/Unipath-1.1.dist-info/REQUESTED
+new file mode 100644
+index 0000000..e69de29
+diff --git a/myvenv/lib/python3.10/site-packages/Unipath-1.1.dist-info/WHEEL b/myvenv/lib/python3.10/site-packages/Unipath-1.1.dist-info/WHEEL
+new file mode 100644
+index 0000000..7e68873
+--- /dev/null
++++ b/myvenv/lib/python3.10/site-packages/Unipath-1.1.dist-info/WHEEL
+@@ -0,0 +1,5 @@
++Wheel-Version: 1.0
++Generator: bdist_wheel (0.41.2)
++Root-Is-Purelib: true
++Tag: py3-none-any
++
+diff --git a/myvenv/lib/python3.10/site-packages/Unipath-1.1.dist-info/top_level.txt b/myvenv/lib/python3.10/site-packages/Unipath-1.1.dist-info/top_level.txt
+new file mode 100644
+index 0000000..86311d9
+--- /dev/null
++++ b/myvenv/lib/python3.10/site-packages/Unipath-1.1.dist-info/top_level.txt
+@@ -0,0 +1 @@
++unipath
+diff --git a/myvenv/lib/python3.10/site-packages/unipath/__init__.py b/myvenv/lib/python3.10/site-packages/unipath/__init__.py
+new file mode 100644
+index 0000000..686c1fe
+--- /dev/null
++++ b/myvenv/lib/python3.10/site-packages/unipath/__init__.py
+@@ -0,0 +1,16 @@
++"""unipath.py - A two-class approach to file/directory operations in Python.
++"""
++
++from unipath.abstractpath import AbstractPath
++from unipath.path import Path
++
++FSPath = Path
++
++#### FILTER FUNCTIONS (PUBLIC) ####
++def DIRS(p):  return p.isdir()
++def FILES(p):  return p.isfile()
++def LINKS(p):  return p.islink()
++def DIRS_NO_LINKS(p):  return p.isdir() and not p.islink()
++def FILES_NO_LINKS(p):  return p.isfile() and not p.islink()
++def DEAD_LINKS(p):  return p.islink() and not p.exists()
++    
+diff --git a/myvenv/lib/python3.10/site-packages/unipath/__pycache__/__init__.cpython-310.pyc b/myvenv/lib/python3.10/site-packages/unipath/__pycache__/__init__.cpython-310.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..e6116120441b250a21b18e6a8c878897fdba3fbd
+GIT binary patch
+literal 1037
+zcma)5O>f#j5ZyJ#7%=3cQO~||0JrKjii%1i(MB|?d-BC{yiQqRyw>g}l&Z)6kmksL
+z=`ZlLr`#%W>!~wK66F9@7Ws|$>&=_zL3BDT0^`rG<Lr(S@*5{lhXs?j@TkuKj6{S{
+zX61BlMHa>PT3(ymkxfZvM|Ebi`VSI0%wY|P4d${YM3=Q#8)B1rtOK#dx@-?(o9&0B
+zcku1~b-~L-PY31F@B2evFGN4h6Q%s5ETu@&sjr29#q%s+TxO{ja_NgQlZob{P(CmG
+zi>025V$iw+m83^2Z+NM+Oj3OTyfC*hrcmJHz;`U}9Xx9n;5+$AZb?X1bOIOZTtTiC
+zt!TL-vI+ZtC&5C<nJSYsQ$e`kS9+LdQU~+pO;+3lIll}_Bje5B^{YT}o%P}DEcpV*
+z?<)-Am=|2fF_c=_qw%K@-Cv^)m&i7Rof@SLyRr@d>Kv}n4%xsp6t@8+tLkUt^V1Ny
+zq=(Q2cs6U!i`jP8^YP?EXb27L|BrQj2)i3Ug$t415)Yi+sJEnpvi1<R>F=N|@#JG{
+zGIrpY@#m08WZhlK0TLR2EQz;vXXqM-9#fz}@&&>X!1EHI`pU_^a;4SQDq5q{;b>EW
+zsnqblgj<uIS2g08i8PL*qleB<?%Ngr1`^vL@*cL#QVo}!vk=?Z^ojYb62F46#YmUP
+k|D+vEW0;<BkLQA2=h+E%y}~kW;?+EATW-yzo1aJj0mv%E&Hw-a
+
+literal 0
+HcmV?d00001
+
+diff --git a/myvenv/lib/python3.10/site-packages/unipath/__pycache__/abstractpath.cpython-310.pyc b/myvenv/lib/python3.10/site-packages/unipath/__pycache__/abstractpath.cpython-310.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..15792f4c64c0287079013fd32fda885ceb491e44
+GIT binary patch
+literal 6949
+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
+Gob?}jr<<Ap
+
+literal 0
+HcmV?d00001
+
+diff --git a/myvenv/lib/python3.10/site-packages/unipath/__pycache__/errors.cpython-310.pyc b/myvenv/lib/python3.10/site-packages/unipath/__pycache__/errors.cpython-310.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..f1fb277c7e9421862a8db3abc062e9e14cb7a102
+GIT binary patch
+literal 594
+zcmaix%}&BV5XZOO0+kQt;7f3jYV=49CK@jWjRZ}&Y!-HahO(`@Eu=RSeHq@xC+O7|
+zFyZFO*;b<_5+|AI{-(44o!Jc=jVeKVd+ER<eqRmzGzX!Ju1_#r5<!IZj1J_94lQI`
+zP-F@=GDUVo3AqFga!Hi?q*WQ?&R=FBb<sC<3_ymKAVXVNSZil{1F880Zg@PqP%2ct
+zHO*YcBwqkyS(ULxD3ZXe>x?}lJShIGiK?Jj9^S9KRjB4V;$zTWf8|f&vj9}=Ez%{(
+zr5E@kFG}NCD39Amho1IhIKbLDpJI6;{Rq$Yz#OjIQL1dzH63rvRk*~l^32wul&Qr*
+zc5h*vDD8)`m_t#_e>YjIT$3{oV6@fF7yT<<KZj8=z2{2$a@yN2T|>qEUUF$ey;eD^
+t-ti!Tysdneta9Bi$h4Bx1{&0-wlaJE>N;~f#Y>!;d36~>lQii*{Q#vrd29dx
+
+literal 0
+HcmV?d00001
+
+diff --git a/myvenv/lib/python3.10/site-packages/unipath/__pycache__/path.cpython-310.pyc b/myvenv/lib/python3.10/site-packages/unipath/__pycache__/path.cpython-310.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..095e963699193ed56b724885644125cccc598e6a
+GIT binary patch
+literal 10695
+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
+
+literal 0
+HcmV?d00001
+
+diff --git a/myvenv/lib/python3.10/site-packages/unipath/__pycache__/tools.cpython-310.pyc b/myvenv/lib/python3.10/site-packages/unipath/__pycache__/tools.cpython-310.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..1333af9c8ddd613a0b35e79731d611cb5ee084d5
+GIT binary patch
+literal 1119
+zcmZWoyKWRQ6!mK!JK02$fCOk*5RsT7SqL49qM*<rMM&vJpwVXR4Nm42+ndK~w%WA(
+z!*0pH@C9zE=x9j;*OLSy;gOH8ug_fD_gq(tixGnM^V^oVqzHX?le-OkXa~A>z)^xY
+z<|M}jNk~Bxirt*%EMYLR+$;RV2Va-_Jh;S3z!!PM7r+WR-AD1#cy+fbPemz3nTg(T
+zRAxq2rQV2sKzI}ryHqP#n)G(XMu(ylYG5j*_hM|>hk^NQ@mc21b=v|k81!A}`Ut?F
+z22Jq<aE9kdcVQ%Rgi(WMbdKJkPtQJ*37s&<Yv`0rJi{7hyeU!7jo)|;n-YvpmQ4UQ
+zfpx#}XJNzU7-IOdj*E4&%n{rO@5PaFn_FL;OKr6EieoO7^`sGnwvp7b)MfzJwT#Qm
+z*wEpoqp+$LrS;AfP_38cl@@VeDJ&%bnPo-Ag$;)?7v-Q3Hpr^dh|*YGTRi-V)C1V}
+z>V5yLQpdU;WJ34%&*ad&&4n`k;sWw~+Rx=dzrHY^tMc{6tCxKZd#wZacyI{xQ7LOk
+zXx~&-t~crnwEz)2(Dg%r5W8;~N9{*$M)s>^S#-sE&@y-V+vbDedaJ|?jD~VFLMkxm
+z2v4XXtuByjr-OQ8plTZ2up`L$%%7tnU2%VqFOYqgUGN6L+W{WE<_*a|2CRmynhT&`
+z2b97MSw#&2MH%R`=_0_N?C%cI|2xFq-Z)y*Yr40--CNVH!d$w?p7XuAS?ax5<8i!T
+zslL$G*M?UkbECP`xh#*Z*H*1%PNt-z#DJ&QeyN?%K@OGSj1C_ab?Q=XnU-S_`<Asc
+zzgA)>&n-2B1N8_Jr|tn*Qg5~*U&D&?KLv1xb`WB})u;!!g1h)WX1{y1<-}Ndz=)|@
+zg+Vzz_u`HX(v(+On%XFZM`lJ!q^Tl~;a-$_43GpjWzpWT6}ydi=OnK1lskY8x1dNz
+Vx!A@q(_H|DmT8E)BqB?Te*kU=6mtLo
+
+literal 0
+HcmV?d00001
+
+diff --git a/myvenv/lib/python3.10/site-packages/unipath/abstractpath.py b/myvenv/lib/python3.10/site-packages/unipath/abstractpath.py
+new file mode 100644
+index 0000000..eecb114
+--- /dev/null
++++ b/myvenv/lib/python3.10/site-packages/unipath/abstractpath.py
+@@ -0,0 +1,226 @@
++"""unipath.py - A two-class approach to file/directory operations in Python.
++"""
++
++import os
++
++from unipath.errors import UnsafePathError
++
++__all__ = ["AbstractPath"]
++
++# Use unicode strings if possible.
++_base = str               # Python 3 str (=unicode), or Python 2 bytes.
++if os.path.supports_unicode_filenames:
++    try:
++        _base = unicode   # Python 2 unicode.
++    except NameError:
++        pass
++
++class AbstractPath(_base):
++    """An object-oriented approach to os.path functions."""
++    pathlib = os.path
++    auto_norm = False
++
++    #### Special Python methods.
++    def __new__(class_, *args, **kw):
++        norm = kw.pop("norm", None)
++        if norm is None:
++            norm = class_.auto_norm
++        if kw:
++            kw_str = ", ".join(kw.iterkeys())
++            raise TypeError("unrecognized keyword args: %s" % kw_str)
++        newpath = class_._new_helper(args)
++        if isinstance(newpath, class_):
++            return newpath
++        if norm:
++            newpath = class_.pathlib.normpath(newpath)
++            # Can't call .norm() because the path isn't instantiated yet.
++        return _base.__new__(class_, newpath)
++
++    def __add__(self, more):
++        try:
++            resultStr = _base.__add__(self, more)
++        except TypeError:  #Python bug
++            resultStr = NotImplemented
++        if resultStr is NotImplemented:
++            return resultStr
++        return self.__class__(resultStr)
++ 
++    @classmethod
++    def _new_helper(class_, args):
++        pathlib = class_.pathlib
++        # If no args, return "." or platform equivalent.
++        if not args:
++            return pathlib.curdir
++        # Avoid making duplicate instances of the same immutable path
++        if len(args) == 1 and isinstance(args[0], class_) and \
++            args[0].pathlib == pathlib:
++            return args[0]
++        try:
++            legal_arg_types = (class_, basestring, list, int, long)
++        except NameError: # Python 3 doesn't have basestring nor long
++            legal_arg_types = (class_, str, list, int)
++        args = list(args)
++        for i, arg in enumerate(args):
++            if not isinstance(arg, legal_arg_types):
++                m = "arguments must be str, unicode, list, int, long, or %s"
++                raise TypeError(m % class_.__name__)
++            try:
++                int_types = (int, long)
++            except NameError: # We are in Python 3
++                int_types = int
++            if isinstance(arg, int_types):
++                args[i] = str(arg)
++            elif isinstance(arg, class_) and arg.pathlib != pathlib:
++                arg = getattr(arg, components)()   # Now a list.
++                if arg[0]:
++                    reason = ("must use a relative path when converting "
++                              "from '%s' platform to '%s': %s")
++                    tup = arg.pathlib.__name__, pathlib.__name__, arg
++                    raise ValueError(reason % tup)
++                # Fall through to convert list of components.
++            if isinstance(arg, list):
++                args[i] = pathlib.join(*arg)
++        return pathlib.join(*args)
++        
++    def __repr__(self):
++        return '%s(%r)' % (self.__class__.__name__, _base(self))
++
++    def norm(self):
++        return self.__class__(self.pathlib.normpath(self))
++
++    def expand_user(self):
++        return self.__class__(self.pathlib.expanduser(self))
++    
++    def expand_vars(self):
++        return self.__class__(self.pathlib.expandvars(self))
++    
++    def expand(self):
++        """ Clean up a filename by calling expandvars(),
++        expanduser(), and norm() on it.
++
++        This is commonly everything needed to clean up a filename
++        read from a configuration file, for example.
++        """
++        newpath = self.pathlib.expanduser(self)
++        newpath = self.pathlib.expandvars(newpath)
++        newpath = self.pathlib.normpath(newpath)
++        return self.__class__(newpath)
++
++    #### Properies: parts of the path.
++
++    @property
++    def parent(self):
++        """The path without the final component; akin to os.path.dirname().
++           Example: Path('/usr/lib/libpython.so').parent => Path('/usr/lib')
++        """
++        return self.__class__(self.pathlib.dirname(self))
++    
++    @property
++    def name(self):
++        """The final component of the path.
++           Example: path('/usr/lib/libpython.so').name => Path('libpython.so')
++        """
++        return self.__class__(self.pathlib.basename(self))
++    
++    @property
++    def stem(self):
++        """Same as path.name but with one file extension stripped off.
++           Example: path('/home/guido/python.tar.gz').stem => Path('python.tar')
++        """
++        return self.__class__(self.pathlib.splitext(self.name)[0])
++    
++    @property
++    def ext(self):
++        """The file extension, for example '.py'."""
++        return self.__class__(self.pathlib.splitext(self)[1])
++
++    #### Methods to extract and add parts to the path.
++
++    def split_root(self):
++        """Split a path into root and remainder.  The root is always "/" for
++           posixpath, or a backslash-root, drive-root, or UNC-root for ntpath.
++           If the path begins with none of these, the root is returned as ""
++           and the remainder is the entire path.
++        """
++        P = self.__class__
++        if hasattr(self.pathlib, "splitunc"):
++            root, rest = self.pathlib.splitunc(self)
++            if root:
++                if rest.startswith(self.pathlib.sep):
++                    root += self.pathlib.sep
++                    rest = rest[len(self.pathlib.sep):]
++                return P(root), P(rest)
++                # @@MO: Should test altsep too.
++        root, rest = self.pathlib.splitdrive(self)
++        if root:
++            if rest.startswith(self.pathlib.sep):
++                root += self.pathlib.sep
++                rest = rest[len(self.pathlib.sep):]
++            return P(root), P(rest)
++            # @@MO: Should test altsep too.
++        if self.startswith(self.pathlib.sep):
++            return P(self.pathlib.sep), P(rest[len(self.pathlib.sep):])
++        if self.pathlib.altsep and self.startswith(self.pathlib.altsep):
++            return P(self.pathlib.altsep), P(rest[len(self.pathlib.altsep):])
++        return P(""), self
++
++    def components(self):
++        # @@MO: Had to prevent "" components from being appended.  I don't
++        # understand why Lindqvist didn't have this problem.
++        # Also, doesn't this fail to get the beginning components if there's
++        # a "." or ".." in the middle of the path?
++        root, loc = self.split_root()
++        components = []
++        while loc != self.pathlib.curdir and loc != self.pathlib.pardir:
++            prev = loc
++            loc, child = self.pathlib.split(prev)
++            #print "prev=%r, loc=%r, child=%r" % (prev, loc, child)
++            if loc == prev:
++                break
++            if child != "":
++                components.append(child)
++            if loc == "":
++                break
++        if loc != "":
++            components.append(loc)
++        components.reverse()
++        components.insert(0, root)
++        return [self.__class__(x) for x in components]
++
++    def ancestor(self, n):
++        p = self
++        for i in range(n):
++            p = p.parent
++        return p
++
++    def child(self, *children):
++        # @@MO: Compare against Glyph's method.
++        for child in children:
++            if self.pathlib.sep in child:
++                msg = "arg '%s' contains path separator '%s'"
++                tup = child, self.pathlib.sep
++                raise UnsafePathError(msg % tup)
++            if self.pathlib.altsep and self.pathlib.altsep in child:
++                msg = "arg '%s' contains alternate path separator '%s'"
++                tup = child, self.pathlib.altsep
++                raise UnsafePathError(msg % tup)
++            if child == self.pathlib.pardir:
++                msg = "arg '%s' is parent directory specifier '%s'"
++                tup = child, self.pathlib.pardir
++                raise UnsafePathError(msg % tup)
++            if child == self.pathlib.curdir:    
++                msg = "arg '%s' is current directory specifier '%s'"
++                tup = child, self.pathlib.curdir
++                raise UnsafePathError(msg % tup)
++        newpath = self.pathlib.join(self, *children)
++        return self.__class__(newpath)
++
++    def norm_case(self):
++        return self.__class__(self.pathlib.normcase(self))
++    
++    def isabsolute(self):
++        """True if the path is absolute.
++           Note that we consider a Windows drive-relative path ("C:foo") 
++           absolute even though ntpath.isabs() considers it relative.
++        """
++        return bool(self.split_root()[0])
+diff --git a/myvenv/lib/python3.10/site-packages/unipath/errors.py b/myvenv/lib/python3.10/site-packages/unipath/errors.py
+new file mode 100644
+index 0000000..9b3a66d
+--- /dev/null
++++ b/myvenv/lib/python3.10/site-packages/unipath/errors.py
+@@ -0,0 +1,8 @@
++class UnsafePathError(ValueError):
++    pass
++
++class RecursionError(OSError):
++    pass
++
++class DebugWarning(UserWarning):
++    pass
+diff --git a/myvenv/lib/python3.10/site-packages/unipath/path.py b/myvenv/lib/python3.10/site-packages/unipath/path.py
+new file mode 100644
+index 0000000..b47c67d
+--- /dev/null
++++ b/myvenv/lib/python3.10/site-packages/unipath/path.py
+@@ -0,0 +1,341 @@
++"""unipath.py - A two-class approach to file/directory operations in Python.
++
++Full usage, documentation, changelog, and history are at
++http://sluggo.scrapping.cc/python/unipath/
++
++(c) 2007 by Mike Orr (and others listed in "History" section of doc page).
++Permission is granted to redistribute, modify, and include in commercial and
++noncommercial products under the terms of the Python license (i.e., the "Python
++Software Foundation License version 2" at 
++http://www.python.org/download/releases/2.5/license/).
++"""
++
++import errno
++import fnmatch
++import glob
++import os
++import shutil
++import stat
++import sys
++import time
++import warnings
++
++from unipath.abstractpath import AbstractPath
++from unipath.errors import RecursionError
++
++__all__ = ["Path"]
++
++#warnings.simplefilter("ignore", DebugWarning, append=1)
++
++def flatten(iterable):
++    """Yield each element of 'iterable', recursively interpolating 
++       lists and tuples.  Examples:
++       [1, [2, 3], 4]  =>  iter([1, 2, 3, 4])
++       [1, (2, 3, [4]), 5) => iter([1, 2, 3, 4, 5])
++    """
++    for elm in iterable:
++        if isinstance(elm, (list, tuple)):
++            for relm in flatten(elm):
++                yield relm
++        else:
++            yield elm
++
++class Path(AbstractPath):
++
++    ##### CURRENT DIRECTORY ####
++    @classmethod
++    def cwd(class_):
++        """ Return the current working directory as a path object. """
++        return class_(os.getcwd())
++
++    def chdir(self):
++        os.chdir(self)
++
++    #### CALCULATING PATHS ####
++    def absolute(self):
++        """Return the absolute Path, prefixing the current directory if
++           necessary.
++        """
++        return self.__class__(os.path.abspath(self))
++
++    def relative(self):
++        """Return a relative path to self from the current working directory.
++        """
++        return self.__class__.cwd().rel_path_to(self)
++
++    def rel_path_to(self, dst):
++        """ Return a relative path from self to dst.
++
++        This prefixes as many pardirs (``..``) as necessary to reach a common
++        ancestor.  If there's no common ancestor (e.g., they're are on 
++        different Windows drives), the path will be absolute.
++        """
++        origin = self.__class__(self).absolute()
++        if not origin.isdir():
++            origin = origin.parent
++        dest = self.__class__(dst).absolute()
++
++        orig_list = origin.norm_case().components()
++        # Don't normcase dest!  We want to preserve the case.
++        dest_list = dest.components()
++
++        if orig_list[0] != os.path.normcase(dest_list[0]):
++            # Can't get here from there.
++            return self.__class__(dest)
++
++        # Find the location where the two paths start to differ.
++        i = 0
++        for start_seg, dest_seg in zip(orig_list, dest_list):
++            if start_seg != os.path.normcase(dest_seg):
++                break
++            i += 1
++
++        # Now i is the point where the two paths diverge.
++        # Need a certain number of "os.pardir"s to work up
++        # from the origin to the point of divergence.
++        segments = [os.pardir] * (len(orig_list) - i)
++        # Need to add the diverging part of dest_list.
++        segments += dest_list[i:]
++        if len(segments) == 0:
++            # If they happen to be identical, use os.curdir.
++            return self.__class__(os.curdir)
++        else:
++            newpath = os.path.join(*segments)
++            return self.__class__(newpath)
++    
++    def resolve(self):
++        """Return an equivalent Path that does not contain symbolic links."""
++        return self.__class__(os.path.realpath(self))
++    
++
++    #### LISTING DIRECTORIES ####
++    def listdir(self, pattern=None, filter=None, names_only=False):
++        if names_only and filter is not None:
++            raise TypeError("filter not allowed if 'names_only' is true")
++        empty_path = self == ""
++        if empty_path:
++            names = os.listdir(os.path.curdir)
++        else:
++            names = os.listdir(self)
++        if pattern is not None:
++            names = fnmatch.filter(names, pattern)
++        names.sort()
++        if names_only:
++            return names
++        ret = [self.child(x) for x in names]
++        if filter is not None:
++            ret = [x for x in ret if filter(x)]
++        return ret
++
++    def walk(self, pattern=None, filter=None, top_down=True):
++        return self._walk(pattern, filter, top_down=top_down, seen=set())
++
++    def _walk(self, pattern, filter, top_down, seen):
++        if not self.isdir():
++            raise RecursionError("not a directory: %s" % self)
++        real_dir = self.resolve()
++        if real_dir in seen:
++            return  # We've already recursed this directory.
++        seen.add(real_dir)
++        for child in self.listdir(pattern):
++            is_dir = child.isdir()
++            if is_dir and not top_down:
++                for grandkid in child._walk(pattern, filter, top_down, seen):
++                    yield grandkid
++            if filter is None or filter(child):
++                yield child
++            if is_dir and top_down:
++                for grandkid in child._walk(pattern, filter, top_down, seen):
++                    yield grandkid
++                
++
++    #### STAT ATTRIBUTES ####
++    exists = os.path.exists
++    lexists = os.path.lexists
++
++    isfile = os.path.isfile
++    
++    def isdir(self):
++        return os.path.isdir(self)
++    
++    islink = os.path.islink
++    ismount = os.path.ismount
++
++    atime = os.path.getatime
++    ctime = os.path.getctime
++    mtime = os.path.getmtime
++
++    size = os.path.getsize
++
++    if hasattr(os.path, 'samefile'):
++        same_file = os.path.samefile
++
++    # For some reason these functions have to be wrapped in methods.
++    def stat(self):
++        return os.stat(self)
++
++    def lstat(self):
++        return os.lstat(self)
++
++    if hasattr(os, 'statvfs'):
++        def statvfs(self):
++            return os.statvfs(self)
++
++    def chmod(self, mode):
++        os.chmod(self, mode)
++
++    if hasattr(os, 'chown'):
++        def chown(self, uid, gid):
++            os.chown(self, uid, gid)
++
++    def set_times(self, mtime=None, atime=None):
++        """Set a path's modification and access times.
++           Times must be in ticks as returned by ``time.time()``.
++           If 'mtime' is None, use the current time.
++           If 'atime' is None, use 'mtime'.
++           Creates an empty file if the path does not exists.
++           On some platforms (Windows), the path must not be a directory.
++        """
++        if not self.exists():
++            fd = os.open(self, os.O_WRONLY | os.O_CREAT, 0o666)
++            os.close(fd)
++        if mtime is None:
++            mtime = time.time()
++        if atime is None:
++            atime = mtime
++        times = atime, mtime
++        os.utime(self, times)
++
++
++    #### CREATING, REMOVING, AND RENAMING ####
++    def mkdir(self, parents=False, mode=0o777):
++        if self.exists():
++            return
++        if parents:
++            os.makedirs(self, mode)
++        else:
++            os.mkdir(self, mode)
++
++    def rmdir(self, parents=False):
++        if not self.exists():
++            return
++        if parents:
++            os.removedirs(self)
++        else:
++            os.rmdir(self)
++
++    def remove(self):
++        if self.lexists():
++            os.remove(self)
++
++    def rename(self, new, parents=False):
++        if parents:
++            os.renames(self, new)
++        else:
++            os.rename(self, new)
++
++    #### SYMBOLIC AND HARD LINKS ####
++    if hasattr(os, 'link'):
++        def hardlink(self, newpath):
++            """Create a hard link at 'newpath' pointing to self. """
++            os.link(self, newpath)
++
++    if hasattr(os, 'symlink'):
++        def write_link(self, link_content):
++            """Create a symbolic link at self pointing to 'link_content'.
++               This is the same as .symlink but with the args reversed.
++            """
++            os.symlink(link_content, self)
++
++        def make_relative_link_to(self, dest):
++            """Make a relative symbolic link from self to dest.
++            
++            Same as self.write_link(self.rel_path_to(dest))
++            """
++            link_content = self.rel_path_to(dest)
++            self.write_link(link_content)
++
++
++    if hasattr(os, 'readlink'):
++        def read_link(self, absolute=False):
++            p = self.__class__(os.readlink(self))
++            if absolute and not p.isabsolute():
++                p = self.__class__(self.parent, p)
++            return p
++
++    #### HIGH-LEVEL OPERATIONS ####
++    def copy(self, dst, times=False, perms=False):
++        """Copy the file, optionally copying the permission bits (mode) and
++           last access/modify time. If the destination file exists, it will be
++           replaced. Raises OSError if the destination is a directory. If the
++           platform does not have the ability to set the permission or times,
++           ignore it.
++           This is shutil.copyfile plus bits of shutil.copymode and
++           shutil.copystat's implementation.
++           shutil.copy and shutil.copy2 are not supported but are easy to do.
++        """
++        shutil.copyfile(self, dst)
++        if times or perms:
++            self.copy_stat(dst, times, perms)
++
++    def copy_stat(self, dst, times=True, perms=True):
++        st = os.stat(self)
++        if hasattr(os, 'utime'):
++            os.utime(dst, (st.st_atime, st.st_mtime))
++        if hasattr(os, 'chmod'):
++            m = stat.S_IMODE(st.st_mode)
++            os.chmod(dst, m)
++
++    # Undocumented, not implemented method.
++    def copy_tree(dst, perserve_symlinks=False, times=False, perms=False):
++        raise NotImplementedError()
++        
++    if hasattr(shutil, 'move'):
++        move = shutil.move
++        
++    def needs_update(self, others):
++        if not isinstance(others, (list, tuple)):
++            others = [others]
++        if not self.exists():
++            return True
++        control = self.mtime()
++        for p in flatten(others):
++            if p.isdir():
++                for child in p.walk(filter=FILES):
++                    if child.mtime() > control:
++                        return True
++            elif p.mtime() > control:
++                return True
++        return False
++                
++    def read_file(self, mode="rU"):
++        f = open(self, mode)
++        content = f.read()
++        f.close()
++        return content
++
++    def rmtree(self, parents=False):
++        """Delete self recursively, whether it's a file or directory.
++           directory, remove it recursively (same as shutil.rmtree). If it
++           doesn't exist, do nothing.
++           If you're looking for a 'rmtree' method, this is what you want.
++        """
++        if self.isfile() or self.islink():
++           os.remove(self)
++        elif self.isdir():
++           shutil.rmtree(self)
++        if not parents:
++            return
++        p = self.parent
++        while p:
++            try:
++                 os.rmdir(p)
++            except os.error:
++                break
++            p = p.parent
++
++    def write_file(self, content, mode="w"):
++        f = open(self, mode)
++        f.write(content)
++        f.close()
++
+diff --git a/myvenv/lib/python3.10/site-packages/unipath/tools.py b/myvenv/lib/python3.10/site-packages/unipath/tools.py
+new file mode 100644
+index 0000000..d76a16e
+--- /dev/null
++++ b/myvenv/lib/python3.10/site-packages/unipath/tools.py
+@@ -0,0 +1,33 @@
++"""Convenience functions.
++"""
++
++from __future__ import print_function, generators
++import sys
++
++from unipath import Path
++
++def dict2dir(dir, dic, mode="w"):
++    dir = Path(dir)
++    if not dir.exists():
++        dir.mkdir()
++    for filename, content in dic.items():
++        p = Path(dir, filename)
++        if isinstance(content, dict):
++            dict2dir(p, content)
++            continue
++        f = open(p, mode)
++        f.write(content)
++        f.close()
++
++def dump_path(path, prefix="", tab="    ", file=None):
++    if file is None:
++        file = sys.stdout
++    p = Path(path)
++    if   p.islink():
++        print("%s%s -> %s" % (prefix, p.name, p.read_link()), file=file)
++    elif p.isdir():
++        print("%s%s:" % (prefix, p.name), file=file)
++        for p2 in p.listdir():
++            dump_path(p2, prefix+tab, tab, file)
++    else:
++        print("%s%s  (%d)" % (prefix, p.name, p.size()), file=file)
+-- 
+2.44.0.windows.1
+
