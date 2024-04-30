@@ -1,0 +1,307 @@
+From 6770d9ea0a15e33046b49c456a10ea902ccad38d Mon Sep 17 00:00:00 2001
+From: Tasnim Jahin Mowla <138311941+TasnimJahinMowla@users.noreply.github.com>
+Date: Sat, 28 Oct 2023 12:52:17 +0000
+Subject: [PATCH] Notification Sytax Fixed
+
+---
+ myProject/db.sqlite3                          | Bin 172032 -> 176128 bytes
+ .../myApp/__pycache__/models.cpython-310.pyc  | Bin 2214 -> 2254 bytes
+ .../myApp/__pycache__/urls.cpython-310.pyc    | Bin 822 -> 898 bytes
+ .../myApp/__pycache__/views.cpython-310.pyc   | Bin 3847 -> 4265 bytes
+ .../migrations/0004_notification_is_read.py   |  17 ++++++++
+ .../0004_notification_is_read.cpython-310.pyc | Bin 0 -> 589 bytes
+ myProject/myApp/models.py                     |   1 +
+ myProject/myApp/static/notStyle.css           |   2 +-
+ myProject/myApp/static/script.js              |  37 ++++++++++--------
+ .../myApp/templates/myApp/notification.html   |  15 ++++---
+ myProject/myApp/urls.py                       |   2 +-
+ myProject/myApp/views.py                      |  17 ++++++++
+ 12 files changed, 64 insertions(+), 27 deletions(-)
+ create mode 100644 myProject/myApp/migrations/0004_notification_is_read.py
+ create mode 100644 myProject/myApp/migrations/__pycache__/0004_notification_is_read.cpython-310.pyc
+
+diff --git a/myProject/db.sqlite3 b/myProject/db.sqlite3
+index 3d87f36ba56440a9999787fe5baa233cf6712200..2185ab36c53327afaa493a8337ef024962b762bb 100644
+GIT binary patch
+delta 623
+zcmZoTz}4`8Yl5_30s{ksHV~@=F(VMWP1G@FOxT#Pgr8ZAt7tO2fHo6X(Pl>hJ1%=$
+zF;)g~d&k^L$ASU_0|S%zy!?{Pw9MqhlFa<P_{`$?qSV9`BLgF2T|)z1BMSvXBP(M|
+zD<ca%LrViwGsDdrrLtL>_+D&QR5-=Q!as|_bfTjqlNkSGcKsiWVoe5Z28_!Lm=u;J
+zFbVJg9RdStn*|%*^G^(5-E@FOU^7d@Uw&!MVg^q3eg=Mbz9gP4-2b@)IO;iUxY*hI
+z*`5GhdV-CGvzRervZKIq=0+`>>18vS+!@uT@0-b#wB2R~lQ|;`(C8^Z=?Pp-Zr1GL
+zhK7tS=F_!iF=;YtPv1C$No0D)ET-p@ItofqFDWS`<>%)p`1yw@_=WoTZ1<ndw2?)D
+z7ibC(uMGqL5&jN-AASM8YkYI~lK3=u-|}waE$6iXdQ*m%!;*)M!Pb$HWBSB+CgJG<
+zaZHl@7UmX)CT1*_+?X<^hQ?+FES6m8GSlD3GO=@5a-xYVa9D7#F<8Tm-xJ3qHa#JZ
+ziIc;E9Zg)4&(hSw*oeh~4NXFx!-5q}NOC$~JQEv-6$=}KJ=APnehVWDb4z1pD`pfy
+b10z#YOJ*x3grEtB6(fSD$7TvtV!#Xl8flXp
+
+delta 427
+zcmYj}F;Buk7>0Y-mMew3LIRlRQXEte@MwX%ix`6oZ14{>ZpP6c021TigfJYzjTkmD
+z4JIrOE{^^IUD%9&z_@80EPly5JWt;5?JUgBli6E~A1aEH_49WJ*Ets)dPldGnl!xu
+zifzx*cH5kJtEc)bO+N@skpbHI0?97Dq+mj!ZDapAiW`dcY+YGRD?#4Kn4A!bKk*~(
+z;)cJlg%OYH%3ck~_8rV)#*3wj#v_4p5jO+KW5;!hRO8`5<p>k3R1q38bY<6{p;PD}
+zh62dMctMCVcO8v|mR7z@VHh!eX?}Yy=d7d&O;`5)sop)z6Yg*(Tve$59d*iOp$Ztd
+z5)vSQLa6K)s5)uE*mz<0ds-@NR28dEj-wBe??}tE!)Hd@sLpD!bz@!~LI%|HESG%=
+m>tIv9N_cE`^9-#Ni{L_+@e#~`4e1SGLN-V6ecrr*p7sNV3S%Jv
+
+diff --git a/myProject/myApp/__pycache__/models.cpython-310.pyc b/myProject/myApp/__pycache__/models.cpython-310.pyc
+index 6cb37aa531bf7b8486938344d555bb976711d927..e38e5785ed71606c03c8695ef0351a45417b5d09 100644
+GIT binary patch
+delta 149
+zcmZ1`cutTnpO=@50SHe2w@H;|+sL<%jnQNBSvF&-ROT$66t)!hUdAZi6pj?m7KSLk
+z6s}+fP43Bj?0P(InvA#DQ&Q6sOLIyl+pzmG>P+rpS779y{GL^G@&R^989kt(MJgad
+p6-1~3i758W;`pM}#FWW4Oj1HxKoO8=F%OX7U=U#BnJmaL6#%SsAn5=A
+
+delta 130
+zcmX>nxJ-~QpO=@50SFd<wMl)+x{+@m8>7wSvuwtEDQqe1EeugSDICEJnw*oR*!3oB
+zu&7P0Vpmtv2C6TT0}@pte)%PtX_?81C7JnodhzkaB}MV^eww_K-?NHNzQHcZrwdZ5
+Y0wPp_#AIF$Wp<Et91H@JEjgwF0G<3FJpcdz
+
+diff --git a/myProject/myApp/__pycache__/urls.cpython-310.pyc b/myProject/myApp/__pycache__/urls.cpython-310.pyc
+index 392455f606a584d174037918132ba8ac5d67bdbf..5f263a16c238dd5de978cce2fa1c484fa5205e69 100644
+GIT binary patch
+delta 187
+zcmdnS*2J!z&&$ij00ftqZBwT*GcY^`agc!kkmCTv#jhr6UzbQ_PLWMz$r4SGOX2Ee
+zPUnddOOX#|&{WvW!^q2MRV9_1Sd<-~mtT^ZmYJMbl9`_upI97Ul$w~Le@haloS&xn
+yWErMe(nTUbdv0-;7UdKqmXxFx<rS}FD3Sq+70FCK!{o%MHkqGUm4%Oy;|l<4K{99n
+
+delta 111
+zcmZo--^Qk$&&$ij00af!ZBq4_85kaeILLq>$Z-JT;yV+yuXCkyM~SA$1~X{NZI)u>
+yWn}i#6q}sLG)wFjcWF^hL1IZsYEfSCN`@k7ppGKx$zse-j4G2OnN^uMz5)Q3;}`q@
+
+diff --git a/myProject/myApp/__pycache__/views.cpython-310.pyc b/myProject/myApp/__pycache__/views.cpython-310.pyc
+index c0fe31b9d07712bc8066d1a48d5ce01dfda5363b..15961f6a54cd3f3f5c0ec0a95371b0da3e01533b 100644
+GIT binary patch
+delta 1513
+zcmai!&2Jl35Wx4X*XvEZYd5hS$F&{DZbGw7>Ld-c6*M8VAR5%>5>UZXWo<nhcN4GI
+zyxp`-Nfi)CTtKM2D@g6J5(h*j4j?LVMO=`$;2Zw{LgK^;X4Z*GBC6WbZ)SHs-kaHZ
+z@8hvY<%DM#gA)FpL>BFz)Athv_UHZSPaFyKR>mEvjW7ueNPHyKvXF#hC`VxkhEe7q
+z1!<JWAp;{Q^N@v6lm*Daag;^KLjmO&6k!Zy2}&@IavaJ~L0N_qYmzx3boL}^vTnTL
+z^YyxY$96lx<Db|)#!}*Pq{7l-Gx8Q27C%O=O{H+3JWa?DMi5=q-QMzT-i<Z9c3|HL
+z9!Y#sEGtXQ5WC7EJ1KrpzRV7jdl*fDro5+%ccYhCUVIlV#0%sRx)sIm(b<K{p$LA0
+z9w!KseLRO+ccA4pop#4++EsB$EwfYN`&dDIpuUs|GaL;Ozo@C?%NY2Vf>78X<5i3(
+zvS~3C%T3Nu^3#MP%S5dk-d6A`S!TtzvC13MsG9QX-ITliN~bf69k}H*Y`=Ola9jMT
+zX|#R6l`s=wesB5TV)>b;#)Zwb8o_Em?2H)K-n%-6&)taCYH=#ZjPS7N1@bytIeF@B
+zFL2hKh7~wodkx?CDq@gnOlSNoZRFy9UCCZuH$B&WMokL&yiH5a63$VYEBk5Ey)?FK
+z^QPTyY(FE{K;Q9tKjHbuUk@~y8qP*e6yw*`EZIiI`|&R_%cyn@t7Y?`?%KYObHEqH
+zygtRIL``2P9T+R})UJ5F;yHDWm&8~4#9WzFjqn2DdBP$g>}j&s(+mB#FMe)h;!E^M
+zbHta$xRIYeOX@|!CBpwTU*&ek<G~HFZoI};@bjg2X;Jd`*AY9?h6HR==JTkr2QtVH
+z@f6<81d$D8L*8K!`IOz0LD`Y((H;4L`cPt05Q8YF4*QT@lh!0fLSJorj-h4G79*P~
+zy@S@<5+F@&H9TguMBCf_Zx~hpuK>BT`DR!311s3_`4rV*BFq7PxQo3Gg`*d9{5rQS
+z;9(Dw6jGv)-XPYJ2j{Ks01w;LKU%Nz@CfHzi*MEsxmvxnpJ6VaZka(GP?;r|ildsq
+z|1l>2qx{XUqG{Evh;NKvce@4Hu-Z+pddsnI`&F<T9=8II`&GKw_z=4ClY~=*Dq)T=
+zPdGyeH+PP-^Mvq-(h3Lef^h5MrnL*M2U{(BiJ^x-BjM$yOFB#A)`&WtDe*@lt7uXE
+F^uNLjMIQhF
+
+delta 1161
+zcmaizO-vI}5XbxIcDse`2mPQxKcI-%@>LLl7zzq#LX2=w2?^0O%f3h1*xhYj7h+Z7
+z#Y9aE33(p%qFy+2_v+Duo;GScc=hDLiwECqp(=sUq`#T%`_FV{-t1oHNjhNq{mm}^
+zdHAb9-iLPsN%VPl;Q6wQ{f}L%F&w}_ZrgAOw{jcDVI1MM9Y=AD+Ya1@<J@-QcHF^j
+z0(asBw@IADDQ;6Zjk~x_<L;ZTT!wX{cl$rkHbP-`*WH66Y{$KfTG@B^N;b@Epb<b6
+z5aX~#y|!5;)b^^TVUc^*o{RP}RhU6Cdo4_(KK4y`6>kN(6Agj6rURe7@GPKC_QjKI
+zNr1wUC7B@R$1?v#&>na^1L$qwEca|**(_;BMJbUXwk~E+j(zne*;{dH(#ddKNWf6G
+zw31?Jrcqo|=nPNuQ{WI#GonL0K6Ry^Kjxa2?uYc+Y^9P{*33<7c*D}mbbz1GLBNqh
+zJdS7{PKE(_NObKmQKX)T4{A$ON%fRm(xGmlk!}Rip?>z;n;1N?2ImeG)mm(Xjk0;^
+z!D5O(+is;?rqE~3O`X}C2i0){k`2?+)-}}`(G9MuiX6>ILNcP`P{`b2U%`4`8>UW9
+z=}7?13jC!ro{58gp88V5C-&nbI-w<EsI}XTz{&lOz7i6hRcU9JTkeQ$a2988T3*I3
+zao6@MWkRi@PO4SD7PP=_$ys!cZOda_|7;m3rR!$BNeUC9Y4$<xebf!E1h@bg0~7$x
+z?1J^#O*MYK$i3B|N;RDnty+Z?4TTpy4d<{~6iQl^G(*)eF)Z5yFH6-Hz|e6J%mU^B
+z&RxWh?3GAK#iW+Pp82nOVIP)qT`U{?v_bnICI=V-<N+gqQGk<s0=!9pvq^tbJD&3b
+iNd?`+n`JVCxU8DxkX<s0q7c9ADE~@qClqgzJ%0djbo*cc
+
+diff --git a/myProject/myApp/migrations/0004_notification_is_read.py b/myProject/myApp/migrations/0004_notification_is_read.py
+new file mode 100644
+index 0000000..85d5330
+--- /dev/null
++++ b/myProject/myApp/migrations/0004_notification_is_read.py
+@@ -0,0 +1,17 @@
++# Generated by Django 4.2.6 on 2023-10-28 12:39
++
++from django.db import migrations, models
++
++
++class Migration(migrations.Migration):
++    dependencies = [
++        ("myApp", "0003_userprofile"),
++    ]
++
++    operations = [
++        migrations.AddField(
++            model_name="notification",
++            name="is_read",
++            field=models.BooleanField(default=False),
++        ),
++    ]
+diff --git a/myProject/myApp/migrations/__pycache__/0004_notification_is_read.cpython-310.pyc b/myProject/myApp/migrations/__pycache__/0004_notification_is_read.cpython-310.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..151fced1ea8a91fef95c8cd249fcf1d2cad64e3b
+GIT binary patch
+literal 589
+zcmYjP&1&2*5Y~^q>opq)rRgIS3?*J@k8R2Jkesp<a`Qzvp7A2rwp__e*jpjJ=0W;O
+zy5`g;C=^OMauTuw`k2uSGv7CoIXX%i*&p@^e{ja`LvUyj1!r{JTLNIfTh{S{ccKuS
+zT`&+Je=?BB8+j`W3DFhH;@?!uGU3xsZ*4hh(>p)w3}EZ3kUF#(1!r{JI|5_{2UZB+
+zTV6<vnm7!=Su=+S;yVtrJ4u-Y<}@bpi_7Q!G%W7+>tXQ6tJUhg+Bvj?HMMThFMBiU
+zT2~VhKi5uKEa5!kehyfdyLQYZQ4RD|Uv}uD3FBI03!7}=6E)o{<x{1oZr39DOQpW=
+z$~M%72ynn2u&*>aD@cn^)&S?Bhm|2*ele!SvY)PeY6g5-%`awOQ^5p(H~EdR-`r4E
+z=<=%@U61P)?U;A_uhukJ1&?IrFPqIt@CS9MQ9VgK9riZ7Us$nwMUXHdqK7CJT=0}f
+u|B{C(zsVxMfTrxX<`k|c@)PAL`NHkdJE1;4`S`eo&-7)O3p0+z8~GpSiJd+G
+
+literal 0
+HcmV?d00001
+
+diff --git a/myProject/myApp/models.py b/myProject/myApp/models.py
+index cb89f64..1db9186 100644
+--- a/myProject/myApp/models.py
++++ b/myProject/myApp/models.py
+@@ -39,6 +39,7 @@ class Notification(models.Model):
+     crime_type = models.ForeignKey(CrimeType, on_delete=models.CASCADE)
+     alert_message = models.CharField(max_length=255)
+     timestamp = models.DateTimeField(auto_now_add=True)
++    is_read = models.BooleanField(default=False)
+ 
+     def __str__(self):
+         return self.alert_message
+diff --git a/myProject/myApp/static/notStyle.css b/myProject/myApp/static/notStyle.css
+index 839076c..ecf84cc 100644
+--- a/myProject/myApp/static/notStyle.css
++++ b/myProject/myApp/static/notStyle.css
+@@ -9,7 +9,7 @@
+     justify-content: center;
+     background-color: antiquewhite;
+     width: 100%;
+-    height: 100vh;
++    height: 100%;
+ 
+ }
+ .notificationContainer{
+diff --git a/myProject/myApp/static/script.js b/myProject/myApp/static/script.js
+index 7442fa8..76b7e67 100644
+--- a/myProject/myApp/static/script.js
++++ b/myProject/myApp/static/script.js
+@@ -1,22 +1,25 @@
+-const unReadMessages = document.querySelectorAll('.unread');
+-const unReadMessagesCount = document.getElementById('num-of-notif');
+-const markAll = document.getElementById('mark-as-read');
++document.addEventListener("DOMContentLoaded", function () {
++    const notifications = document.querySelectorAll('.notificationCard');
++    const markAll = document.getElementById('mark-as-read');
+ 
+-unReadMessagesCount.innerText = unReadMessages.length;
+-
+-unReadMessages.forEach((message) => {
+-    message.addEventListener('click', () => {
+-        message.classList.remove('unread');
+-        const newUnreadMessages = document.querySelectorAll('.unread');
+-        unReadMessagesCount.innerText = newUnreadMessages.length;
++    notifications.forEach((notification) => {
++        notification.addEventListener('click', () => {
++            if (notification.classList.contains('unread')) {
++                notification.classList.remove('unread');
++                markNotificationAsRead(notification.getAttribute('data-notification-id'));
++            }
++        });
+     });
+-});
+ 
+-// Mark as All read part
+-markAll.addEventListener('click', () => {
+-    unReadMessages.forEach((message) => {
+-        message.classList.remove('unread');
++    markAll.addEventListener('click', () => {
++        notifications.forEach((notification) => {
++            notification.classList.remove('unread');
++            markNotificationAsRead(notification.getAttribute('data-notification-id'));
++        });
+     });
+-    const newUnreadMessages = document.querySelectorAll('.unread');
+-    unReadMessagesCount.innerHTML = newUnreadMessages.length;
++
++    function markNotificationAsRead(notificationId) {
++        // You can make an AJAX request to your server to mark the notification as read.
++        // You can use the notificationId to identify and update the notification.
++    }
+ });
+diff --git a/myProject/myApp/templates/myApp/notification.html b/myProject/myApp/templates/myApp/notification.html
+index 46a0f60..10fb91b 100644
+--- a/myProject/myApp/templates/myApp/notification.html
++++ b/myProject/myApp/templates/myApp/notification.html
+@@ -1,4 +1,3 @@
+-
+ {% extends 'navigation_bar.html' %}
+ {% load static %}
+ {% block style %}
+@@ -14,15 +13,15 @@
+ <div class="container">
+     <div class="notificationContainer">
+         <header>
+-          <div class="notificationHeader">
+-            <h1>Notification</h1>
+-            <span id="num-of-notif"></span>
+-          </div>
+-          <p id="mark-as-read">Mark as read</p>
++            <div class="notificationHeader">
++                <h1>Notification</h1>
++                <span id="num-of-notif">{{ notifications|length }}</span>
++            </div>
++            <p id="mark-as-read">Mark all as read</p>
+         </header>
+         <main>
+             {% for notification in notifications %}
+-            <div class="notificationCard unread">
++            <div class="notificationCard {% if notification.is_read %}read{% else %}unread{% endif %}" data-notification-id="{{ notification.id }}">
+                 <img src="{% static 'logo.png' %}" alt="photo">
+                 <div class="description">
+                     <p>{{ notification.alert_message }}</p>
+@@ -34,4 +33,4 @@
+     </div>
+ </div>
+ <script src="{% static 'script.js' %}"></script>
+-{% endblock %}
+\ No newline at end of file
++{% endblock %}
+diff --git a/myProject/myApp/urls.py b/myProject/myApp/urls.py
+index 54c5747..14c687a 100644
+--- a/myProject/myApp/urls.py
++++ b/myProject/myApp/urls.py
+@@ -18,5 +18,5 @@ urlpatterns = [
+     path("emergency/", views.emergency, name="emergency"),
+     path("report/", views.report, name="report"),
+     path("", views.register, name="register"),
+-    
++    path('mark_notification_as_read/', views.mark_notification_as_read, name='mark_notification_as_read'),
+ ]
+diff --git a/myProject/myApp/views.py b/myProject/myApp/views.py
+index 8dee9ad..8cc8c58 100644
+--- a/myProject/myApp/views.py
++++ b/myProject/myApp/views.py
+@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
+ from .forms import *
+ from django.http import JsonResponse
+ from django import forms
++from django.views.decorators.csrf import csrf_exempt
+ 
+ def register(request):
+     if request.method == 'POST':
+@@ -134,3 +135,19 @@ def report(request):
+     }
+ 
+     return render(request, "myApp/report.html", context)
++
++
++
++
++
++def mark_notification_as_read(request):
++    if request.method == 'POST':
++        notification_id = request.POST.get('notificationId')
++        try:
++            notification = Notification.objects.get(pk=notification_id)
++            notification.is_read = True
++            notification.save()
++            return JsonResponse({'status': 'success'})
++        except Notification.DoesNotExist:
++            return JsonResponse({'status': 'error'})
++
+-- 
+2.41.0.windows.3
+
