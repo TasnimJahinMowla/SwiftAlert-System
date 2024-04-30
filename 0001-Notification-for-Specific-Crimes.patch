@@ -1,0 +1,651 @@
+From 4782c073acccec613368c1a6c057709813ae6999 Mon Sep 17 00:00:00 2001
+From: Tasnim Jahin Mowla <138311941+TasnimJahinMowla@users.noreply.github.com>
+Date: Sat, 28 Oct 2023 12:06:56 +0000
+Subject: [PATCH] Notification for Specific Crimes
+
+---
+ myProject/db.sqlite3                          | Bin 151552 -> 172032 bytes
+ .../myApp/__pycache__/admin.cpython-310.pyc   | Bin 307 -> 362 bytes
+ .../myApp/__pycache__/models.cpython-310.pyc  | Bin 1397 -> 2214 bytes
+ .../myApp/__pycache__/urls.cpython-310.pyc    | Bin 822 -> 822 bytes
+ .../myApp/__pycache__/views.cpython-310.pyc   | Bin 3721 -> 3847 bytes
+ myProject/myApp/admin.py                      |   4 +-
+ .../myApp/migrations/0002_notification.py     |  36 +++++++++
+ .../myApp/migrations/0003_userprofile.py      |  37 +++++++++
+ .../0002_notification.cpython-310.pyc         | Bin 0 -> 922 bytes
+ .../0003_userprofile.cpython-310.pyc          | Bin 0 -> 937 bytes
+ myProject/myApp/models.py                     |  20 ++++-
+ myProject/myApp/static/notStyle.css           |  72 ++++++++++++++++++
+ myProject/myApp/static/script.js              |  22 ++++++
+ .../myApp/templates/myApp/notification.html   |  44 +++++++----
+ myProject/myApp/templates/myApp/profile.html  |   9 +++
+ myProject/myApp/templates/myApp/report.html   |   2 +-
+ myProject/myApp/urls.py                       |   1 +
+ myProject/myApp/views.py                      |  20 +++--
+ 18 files changed, 239 insertions(+), 28 deletions(-)
+ create mode 100644 myProject/myApp/migrations/0002_notification.py
+ create mode 100644 myProject/myApp/migrations/0003_userprofile.py
+ create mode 100644 myProject/myApp/migrations/__pycache__/0002_notification.cpython-310.pyc
+ create mode 100644 myProject/myApp/migrations/__pycache__/0003_userprofile.cpython-310.pyc
+ create mode 100644 myProject/myApp/static/script.js
+ create mode 100644 myProject/myApp/templates/myApp/profile.html
+
+diff --git a/myProject/db.sqlite3 b/myProject/db.sqlite3
+index 6e306ed5311a88f1c7261032d9400a27c49fff03..3d87f36ba56440a9999787fe5baa233cf6712200 100644
+GIT binary patch
+delta 4234
+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
+H6u9_5d-J0x
+
+delta 1402
+zcmah}ZEO=|9KYwTYu97le=opR=SGJ$WR|vfz3a<WCmSm(TlZErkS;N!@4I%_cI|E5
+z2nm}eW&vZwOS}($fN#b`qpTk)C>wq-M$s@6m0+@nFR(y@5{!_5CO+HLVEo|o<em?|
+z|L^(z|Ihtj<}T86XY{W&)d~bbJc+-**Pc_mxorYr+jF%7LkJ$O8yeuDq4})*0@RuY
+z21iU7+16yhXZ@BIMOU+{)M~mzms*-`XtwL2nS`5g1U`UiI0<h<A2frbRGXu~USCC7
+zkTlzw%Z)|zq7;{Bb8)iKKso;c#Y|L;#WQj~p3CNCO6jw=ZP(Xp@TKsSJU*6-=OwXF
+z5VIMxa?)<sY8ohtL&`^0^+>OLWw$id(>NqO1PJ&UF2T2O0nR`X0uY0fH~<!uz@BrI
+zneJ9}9X+MantS?EckfaKWj4@?Zm0)8;(S$!e*OVjg$yEL5H~l5Lk2~ZCTrX#2kT{c
+zFC*BTjMME_Zb^O({zaD+XT~Y!bLQCKfrx#Gn+*%2hYJ%UeDBnZzgTcbXC|HT*_2Bd
+z&W`w`(fIgq{$P99!Lkg?xP*?WaLyWu+2XM&2jk$ZEMs+GPmGuMcpZ$*Be)nBJKstg
+zi1~J+(rDPHv}cU_{n`F>nwbd7`wqKO^57v^mOO0KY#Cte?t$?__k<vI`h3Y`e6N2v
+zo054?BHx?mN7H@2>4Ovg=x8S0-X9(pXO#z%#mG6mtlP#jPTt|3uR|N2^hU!jz4C0P
+z@p#{`yuT+DI?6{AMJXVMLx=L=qrADxlNibhoRALe8%c;Enb{lY=SB))$E1ayal2+F
+zg<Lj0y_a)_vh5?`LPnJ2aG@h9g~bV5G%Nk{R?ft-UZ=y$u{I~iIynyw*Kygc5U{eb
+z(e+a8+(l4UjyE<og(;dcqK(MIq@FVBH<cIXerhqfB78oRPfbbDw7V$A*i0^xPNZBB
+zSsdr43$jbmoG$eoWLU3tw3wJ4NI8R%qrp(8N8tU3Q^mjmUohGkOmjn>5y4k{&KJ)G
+z`-_`VvN$P^<eqo2F2~}TYw*7=7vIyEC^J|U-O74-tyY(;-(5LE0s2JMb)X#@auB_y
+zKGlK7)R%kE)>C&X)v-RbTYcS!?v)2)h$PFOb|KH>0_7*_2`@oEqkpS%wX#loOS`o~
+zB1=?=x=7BU6J!_hE8&GEgH-i?m7XA|Ant>WrTR~k=hUGDQdM&jozp(eXd4FGl;tgr
+zYDE(5P*;<PqvvZax`x(PG%qR47Nfc?g(mB$SBScx1rcIK%WF5KE{Mpfq1On9`h60a
+z=@)scuA!|Bz4S!6W*ohPsCn~F<u=t-{yc^FiuJzOSssp|7E~U3gS<~6x`eJ#44w~{
+z2zUs;!7uP5T)~s#OWdlfxINE;dg)yxJW9BUDXW--DVv1lWmKWAEF&JXdI`7<SK%}G
+z5KhAhJZz%Si&+e)y_eDX?Rvu+0pGxzFatvMAJrdMFI4v%)^HNOFqGF;QRU9&|D<$%
+zppmdZz}K*Vm5xDq0mx%Dl_V@tumnF~Y!TEYJK2q)y9C^aySOxOz+)OpkEr#7#0nZ3
+Ne#bJ8*sK3-{}Z_ok@Wxo
+
+diff --git a/myProject/myApp/__pycache__/admin.cpython-310.pyc b/myProject/myApp/__pycache__/admin.cpython-310.pyc
+index 1f28b4c37f38c532235785cf81fb07e4a7e8549a..a536d2a312b7add6892359a1d0f4729d1588b526 100644
+GIT binary patch
+delta 114
+zcmdnY^oof$pO=@50SFAg+N3_2$ScbjGEv)FB$Y9Xc>zl*$3jL%1}K|zVv-6Y*TnW9
+zm0LW1`6ZcYnaPPInfZCQxI>Fmivo)B(=u~XS27gw0u3wTo%qOEh!4o(Vc=loVd7x~
+HK><bp7Zx2J
+
+delta 63
+zcmaFGw3&%FpO=@50SF?G+oaB&$ScceGf~@mVx0mb$He(ToGTfMxPg*I+>=Eao%uit
+Oc^Ehtd6;+@1sDP3PYgN$
+
+diff --git a/myProject/myApp/__pycache__/models.cpython-310.pyc b/myProject/myApp/__pycache__/models.cpython-310.pyc
+index 46fc8053bdde17d9dd653c6587c7f7f78ab511c0..6cb37aa531bf7b8486938344d555bb976711d927 100644
+GIT binary patch
+literal 2214
+zcma)7&u`;I6rOP$$99}<+Jz#1m*r<bw1^Wz721+z5n?H58!o<Bu4mdh>)2uJ&`rgS
+zz3yLtkQQ<3zcg1)J+HWMf$xpoHf$R~ta+LFX68N5_q};8dOe@v_xqpQ@~q9+A2e9}
+z*%;hLD}RI$Oz@0Nc*r^Rt<0LV!WL&=GSL$DBPMLg$M(;yunnXw93W1EI6ykW1>!bH
+z2Z$$pAbx|mK)NCT5;TY>dV6fJa)#J!z_l|egv?6x?C(pd5`q_h7ccuUP{~3rSZK-C
+z*p_WrNASm1*g?+~7M>PHp0Gvx5et3cAW%nl$?tcnI7l;j%C%SI5hBV;js}))?`LuT
+zK->8&%M!j2nEKR)Xr&AD6C1NJ-(#nI7yIlPoNAYB9#6=xUCQj>l&KZ0{p+Kx<3c?s
+zr*R_7t-a&)pxVi#s<tL`yvSH4)Z3X(x9Y=hPUpH4MP;R;$fI}`jLT1MF1-0>Grv3N
+zYB!1~XcTEbir`|FQ9p>HA7*h@&nR-Cd*9}ARKVO#WhPXMu+DI2Z@6>k3q?tyy^(xa
+znc1+lpBAbQ&>UgG+#rl}pk}ymS)Z@)pk>f2l2Mr3wDc30Macvg)?*%$a5l1w`p!bX
+z(+KA_!nyZ~B(BmTKciO##r`CI7-cd)td7nEprwL6budeU?J-4!BD=g;$=J}Q0wB*G
+zkIub@_LO*Y_(}gf_9gG0TBVJ&O5G%5DE5X&v8oBILnO#&^(yAWZc-FVq<LJ)ayhXt
+zU}+Dnq(iza;O4Ou;mfIg53|=(`^5Q;g`N8HhOTJi4mjEys&pbp^QlxXW2btNoG(jv
+z^$IO%c(W;=mQqH3)N3#&s}~XegE93w?RkUDI*jfLStcr-lF-Xp+Q8E1(VFxNxXS}e
+z5qgEAi;8g%vzHt_vB3*cujU8;F2)|x&zD`;z*Lf+8LwQ7Z%|D^E$IszJht`9S9y{O
+znOFDav{02odA-Ub<;4)Kq(l>(^6(e-s|5$v?umcy;nR%)SGTZYDY<Ww4{{dpllAj$
+zb>K^mSFg)T!>n<xdv}n2BZzNuRC^V=Wff1RI{3UOG8yM}^7iAr$mf%^nxhWI)vVP1
+z-9pLqF#lT4O)@ItU%OdzDGmABhjge!6=l}a+Cc}QoGPg{x~OdQ^zlGKnoH3B^}CR8
+z8}Oxs*B1R2s)&)1st5XA;fM|-3xo^CJss>8ReF%tmBa{k_BXtmD=<P~2;x~)M0s%>
+z#X|hQJJE}&m`5P8j1QMzjt?k|xg5_ezQd(<y=%35m$q$?A;Q&wjJY!(QtvG?Z<AR{
+z_xqTA2d$|npqU;^5xzU{wI{}LepqaZ{knv`)QpoNuT;9f2||uG>n~IN$!LE=-)K|p
+q>rB{yC!?J4xll_<U`5{x?QYi}rq8I#7~uot@tU>ft+{KRb^jlt;<-=&
+
+delta 652
+zcmZ{iy-piJ5Xbl9KK9N&2M`!YAgN7(QahF<%Z5luxPUY`g>`s0k<oo=?;<5MAdwe{
+zwx^8bDvyDbN7yb!iabDiW=@t!3g7BRH~*WR`R)Ji`}*Iol}AxX;JSF|scZhNwfFuQ
+zGD##&NJ=M^lD9-M$-ffG6}@72e8NF-qzj6>R2)z|>4V}g6<3OL(h2@x>khSEnoE_G
+zreODb3pxfRh_#BRS)8f`wN9y$4-29rb4&X)G+qA6{GtaY<LwdBO&YU2*K(f4l`8c!
+zP;~TvXkp4BxNw)aN02717t`FNY~TFm-N45(EHOR*`D=k$00DR$M9~dYo?6#kaojrU
+zYeqYVXPfxghG2tt>T`8GSBbO@smht27u7t^R`YGaE^J=nVB{0D$@G@_;q9Biy^PS7
+zJez`3s#2zKdoOpOa3$0W^V98m+gP$=Lhs}T&u{(V;Cwh39a)j&v$zJrxswq1QZ=o<
+z6lyi$E>z+HOFX$C0tf|Ng9V)UZrt%~Ag|)=V}2+vH3P}Ir}%Bb{5JrCqw30kT&(@X
+XhF0|8KlqfWK837yp~*JbhG_eb1oVB_
+
+diff --git a/myProject/myApp/__pycache__/urls.cpython-310.pyc b/myProject/myApp/__pycache__/urls.cpython-310.pyc
+index f399c4239fd798a23a8f1624b9b44b12b648b388..392455f606a584d174037918132ba8ac5d67bdbf 100644
+GIT binary patch
+delta 22
+ccmdnSwvCN9pO=@50SF4d+obAm<ke&b06iZCIsgCw
+
+delta 22
+ccmdnSwvCN9pO=@50SF?G+oWo4<ke&b06MY+?EnA(
+
+diff --git a/myProject/myApp/__pycache__/views.cpython-310.pyc b/myProject/myApp/__pycache__/views.cpython-310.pyc
+index 23d4bae52bcf6f868caa7fcc488275c546d2d2cb..c0fe31b9d07712bc8066d1a48d5ce01dfda5363b 100644
+GIT binary patch
+delta 1318
+zcmZ8h&2Jk;6rY*>@OZy$*GUK@P3@vmHsq7iARq<OQj|)q6);jn1*(j9N!P@7n4N%P
+zt(8MS2#E?+BQCU+oWFr97fz@bE?gpu3;zKUNR@g>cyAq?(p~Lu-n@D5H*em1v)`Wn
+zX3A^3u0`NU9xaEzp1SKzvOmb(ncv;1;LKO#=2TFs62Gig>4EnbT9F0`=x0o9sX2B{
+zGa9Dqu=1|a$n0F91m6!yi+)Ku1qo{nmaxFNL&XPD3*5jC_<goV*GZMEla{3uu*vM)
+zdeRTQdOV>COSFBhYa~W5yAQ0=3cNj9B@yYG(oRT_OUykDLd#eB`kE?fJ^ENZGR}?_
+zn>#C8Tk|5^h+-Lvx!bb2={xF38>faU>KF73oI+jIzb|PX%~SozV>)F=?0>Vo#wq{l
+zADvM{Jcst<=2EtwiMQ+ZFpgE#e3#CuAI&oL)z9W`?oBZHTL;joMa3-WCd*<P=02-*
+z@`HeCpR~7S8jW}fR>X{Yj~5*yRbN5HoO1bDI;|dNCe0HIb(qQ8tLZwz0&+7ktrqyi
+ziPeO8W5DnyA6?Nv#8{9to&u1hL3?bUbZI~n8qqG38YB=(lO|BB^xallMxRFYnvB}5
+zSl#2#&iZ=asXU<-r-7-j)iyT;lKYw{!ysNpcpi_Ue&cT8eVE23fJHfVsJMvXmWHXw
+z4N`Ht-3*`3L|#YjI?~M{ETQMQq36iJGi-)pBW%@oo_2pbJ6!r`$nh#jbqes`lLLXn
+zm!{@2tPH#PJLu*`b;<f+H_?OK7est5t%lySA#2$r`wscI(6ywKWP*G`?~w;A;SDz^
+z+|jyrVh<Yh^H`d}sh}9x*y2?pwPSxrW{xE{aS}HexzD<u^q>NxiI-MjtRe~!l^6$5
+z&)C0Ieb(`AL~$IoHcD%uh}*4BZcRimhN5&euGhB0PVri+9tB}bmPEMK7BUQ8FF{q_
+z0*=00+YE)g)r4NHZG>VOc@OM!^t?K>7yX==z}?a<C()c=Zx2eJ7Fl4=2uziFn4MS@
+zC7fc`#489F5Rh@u2f0BXyfM_irgojtrAs)+Ymo+YlSjwF_Kocr4%F9i5Es#41>rJ6
+z+DEQAI8O~U@v=H_&X+i|7^h=!w>)NP7G)Zv=AmN<ycZS!j2d<OzK;yE2=fRF2#W~m
+mCQB$`KZsQ|@4YbdB8U!g=m`7*5S_GN0U0mz0yj=x$M_eZYAAC6
+
+delta 1120
+zcmaiz&u`R56vsW|pX>E{<Ay*IvK#O6quCNd5`L%x3N%rvA|c9;wi2#H743`?2YVgH
+zhANSx3Q?)$Qi;x?7Y+&PUqDrQsMKRm9FS0@*5$vb#Gyin_ja>^TW!rpU%&U}y*H!h
+zZ|nDJZc?e(3Owx3)BK@#-yNgF<o@Kd1%=fkE!G1)HUfhvOks9p#e=~hXp4<U^>{oO
+zkNv=p8$qM%H=}{r3p~(1YkZ>wP1d}swDw7d{N=uY3c0ePFmi*6RQ^+%k^AVds;%hq
+z3~lVuR*bcIqTqW?>5#9KbuUBTZQ58s-<NOu(6edgB&WH$rEciCzG-d2&P-)4t1{~W
+zy-Thtp|W9QrCebHxp7y8Mm$;2pC;C8pQT**Vd}R9U(7h0@-IbvG39=gEQOuIOmDT@
+zJWb`Mx_ihjjF@N32@@XlU#Lqw6IJ<CJt{5jdqU-pTAjE*Kh`KA>+);0DSy|G>tYmQ
+z<xBlMnUwQJgG|WZ%rSY#XjeY~$G;jtBQ_C}V6Tyu^vn_CJur$xa@rgz&!Iewn8JXM
+zS|D5W;`(5`_TlR45orE)2n|jxXK^HY`!IO_4i11StbW|bXg@4JF`H28Z*y<I)PEo^
+z^n8!arny~3-n2%{?X2=w%P(K<h9G9Jo4I~B)m}HtNzDJJ6AfcN-$^rzY4-Qi?CPcA
+zF&9g`(_VW!m;A0&3%}UecobBN3cNm{qgD&+LegH$!lYA_=0zCuPuEs?;VyLAA>*Cw
+z3SUh`)+P|!e;g1Nta(_e1)iOeOkgDcIGGtRKLf1Xo1jcx(KhWZWuugt+se*Mxy`%>
+zbfcV=VYc4M%iY-;ltbkw@|bggjLN{7x#WnwP@+3EVhq(WL=90#R1wD!ClEfMP#2@9
+zd%Tt-8fZO<IE8rshsx0SX;e5u;tU|L!tHa4vuHafePdW&ub2jd&vaJasJy$|rM7Al
+zs#0RSa&&>CbrF8ZN0s8-1a6u{Od*aSrV%rUSp?oV`~V5#QQAAen~vw?FYZAyEuXui
+TBfjNX`kQw^bI2~@5Qn}7$b0t?
+
+diff --git a/myProject/myApp/admin.py b/myProject/myApp/admin.py
+index 47ae59b..52e4099 100644
+--- a/myProject/myApp/admin.py
++++ b/myProject/myApp/admin.py
+@@ -3,4 +3,6 @@ from .models import *
+ 
+ admin.site.register(Location)
+ admin.site.register(CrimeType)
+-admin.site.register(IncidentReport)
+\ No newline at end of file
++admin.site.register(IncidentReport)
++admin.site.register(Notification)
++admin.site.register(UserProfile)
+diff --git a/myProject/myApp/migrations/0002_notification.py b/myProject/myApp/migrations/0002_notification.py
+new file mode 100644
+index 0000000..bfca627
+--- /dev/null
++++ b/myProject/myApp/migrations/0002_notification.py
+@@ -0,0 +1,36 @@
++# Generated by Django 4.2.6 on 2023-10-28 11:37
++
++from django.db import migrations, models
++import django.db.models.deletion
++
++
++class Migration(migrations.Migration):
++    dependencies = [
++        ("myApp", "0001_initial"),
++    ]
++
++    operations = [
++        migrations.CreateModel(
++            name="Notification",
++            fields=[
++                (
++                    "id",
++                    models.BigAutoField(
++                        auto_created=True,
++                        primary_key=True,
++                        serialize=False,
++                        verbose_name="ID",
++                    ),
++                ),
++                ("alert_message", models.CharField(max_length=255)),
++                ("timestamp", models.DateTimeField(auto_now_add=True)),
++                (
++                    "crime_type",
++                    models.ForeignKey(
++                        on_delete=django.db.models.deletion.CASCADE,
++                        to="myApp.crimetype",
++                    ),
++                ),
++            ],
++        ),
++    ]
+diff --git a/myProject/myApp/migrations/0003_userprofile.py b/myProject/myApp/migrations/0003_userprofile.py
+new file mode 100644
+index 0000000..38a6d78
+--- /dev/null
++++ b/myProject/myApp/migrations/0003_userprofile.py
+@@ -0,0 +1,37 @@
++# Generated by Django 4.2.6 on 2023-10-28 11:51
++
++from django.conf import settings
++from django.db import migrations, models
++import django.db.models.deletion
++
++
++class Migration(migrations.Migration):
++    dependencies = [
++        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
++        ("myApp", "0002_notification"),
++    ]
++
++    operations = [
++        migrations.CreateModel(
++            name="UserProfile",
++            fields=[
++                (
++                    "id",
++                    models.BigAutoField(
++                        auto_created=True,
++                        primary_key=True,
++                        serialize=False,
++                        verbose_name="ID",
++                    ),
++                ),
++                ("bio", models.TextField(blank=True, null=True)),
++                (
++                    "user",
++                    models.OneToOneField(
++                        on_delete=django.db.models.deletion.CASCADE,
++                        to=settings.AUTH_USER_MODEL,
++                    ),
++                ),
++            ],
++        ),
++    ]
+diff --git a/myProject/myApp/migrations/__pycache__/0002_notification.cpython-310.pyc b/myProject/myApp/migrations/__pycache__/0002_notification.cpython-310.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..388b039af7a111bafa70e45756f2e5345260e32d
+GIT binary patch
+literal 922
+zcmYjP&u`N(6pkG?P13X*9FTV80_vqLoF}x>QH0PYr0vv;<<+m5v;4xz7~K`FJ@HrY
+zFZs%8SHuaSj^~82Ir5Xg@5O%K`%(1!p@Zw&&wbcqj`PEUhYLC90CzP)BOOUnCnF1z
+z(FG+I)6`wCw~llr`|3yrB<Xx{7ad7YoMGn%?>Iwh!c4_l)T+oU<7I_}v^ri|-@|2f
+z9N?}JG~g_VbQV;Sm@Hgi3BD*@@RF`%_;sWwyBoHm(nrphfebeUQ4djo{-{BHL?QH&
+zDDjehGLQqgv!N>*Gr7B=`0kE;geo7K;OI^sYVBm}X<3?RGMT*KDp$1<sfmt@TCLQw
+z$-z)1Pv?fdI~+0-iOag+OAVq1X?mqrnb2!~0c#Ufpz*T01`~Y(eO6S!bCH4RixhOt
+zGpH&N!_6(`J0w^n@tLQP$Mv}hYK7ifWF<P<5P5OMg_I^-VhG^%x`gYUM(e0yEP?Wa
+zBIj6NsKL;>K!P<Py_JGgR>#9#<MT!Z=O*MFn{k-}o+HjbUW(NIY>|W#atZlTL8U1Q
+zG`(4q<B{#2b}bXVR`C?GpWCNRFgq8zJ@yZ=7^kSRh2gx=pyK>J*2I&E$m7CLd1m}Z
+zCk}<_&ZZ}`>ERm_7A5=}l<$syhEW>xdp^D@^hH&QB~;^+E48YpwuIws{XrKAEbR%q
+zHol*;G4}5z&mXjHRIat1<}U7Pg2s0!Ww)$D33VAk+kET~-422QK_3Z`VOzSTzu4Bl
+zZEg=e6SO&u<XKahwitW=$x%Dtqr2?%Q=5j3e4kKzdXAj&_uC%4B8Vyv%`WxH6ZbDK
+Ce+<X~
+
+literal 0
+HcmV?d00001
+
+diff --git a/myProject/myApp/migrations/__pycache__/0003_userprofile.cpython-310.pyc b/myProject/myApp/migrations/__pycache__/0003_userprofile.cpython-310.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..a8c5a98f5de939537da2e4b1117ff701cec64b60
+GIT binary patch
+literal 937
+zcmYjP&2G~`5caM&j_o+KMF@!_7f>!q1-Gg~4Q&cYv_&Mn__A`clgO_B*mWr33fH~^
+z9C-*{WUriffL;&^%-a3i)sE(WXTF)D+x0CxKQDJ-hgsGyBiucxv-a?*9VEgMB(*XU
+z5@L9o(##I+jD@V0?X(p-uPnht>#HSNU?=S_cGwp7*y=gIG2ZGC?JB6MIA5q9)qWN)
+zWK_jPuC$XC0#bE6Gk$lEhr%8{l^_8tB*F?Q*xwkm66ZS+WI@9={^bfPZ155v|Hlf1
+zBia{iPKArQPObAUD9S#{0d$jliI;37n<k6s7|X&I!3ABAa7%Qt;(OXVx-JiEZDp%r
+zS?aCr?d@kgFRFMR&+5{3=Tw1wCyRNUf~K*U9BTUJpvQC&EvtghBt#Vm-6>_9MRLW@
+zV5L0_iK8_B3_AD-a#|?hd6a>+r*UC^o2F5IrdhsBQ_Ys>jY_Y`IbsAAep4AQR);wA
+z7*e5*d-t`=>nxmWpK}CsnF8_w=O30)YMeQjHo~YMsPm{Sqbb@2l#mO^XDdmKX=8Xg
+zdCgD9qxbyi<Y4qx2R9xuDBanw`#Cbxl4d(}@G@QuvC~6ShV~}#scP8nNe+_&Nh3NU
+ziSk9EshDcF?gIy}+xx@u{_tR={i1}cW%yyqCz!b=e@27zLY}EInt>XO&*OPDOhHzI
+zY=xL7Ff$xZW^lVp1Dw%wZa^!Wsr1X0Y+*tdpW3b&pHjls%%OzZj3BKq`%BlG9;J-<
+zgrS|T=_Omc|LW+Tt2<2#{aKOE8??MDjhNQJHi$gBQTCgy?q9bnADg~REw>#u+*8zP
+UcefeZ3xbj|<py+<xa6VzAHHe~A^-pY
+
+literal 0
+HcmV?d00001
+
+diff --git a/myProject/myApp/models.py b/myProject/myApp/models.py
+index be2f918..cb89f64 100644
+--- a/myProject/myApp/models.py
++++ b/myProject/myApp/models.py
+@@ -1,6 +1,14 @@
+-# models.py
+-
+ from django.db import models
++from django.contrib.auth.models import User
++
++class UserProfile(models.Model):
++    user = models.OneToOneField(User, on_delete=models.CASCADE)
++    bio = models.TextField(blank=True, null=True)
++    #profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
++
++    def __str__(self):
++        return self.user.username
++
+ 
+ class Location(models.Model):
+     area_code = models.CharField(max_length=10)
+@@ -26,3 +34,11 @@ class IncidentReport(models.Model):
+     
+     def __str__(self):
+         return f"Incident: {self.description}"
++
++class Notification(models.Model):
++    crime_type = models.ForeignKey(CrimeType, on_delete=models.CASCADE)
++    alert_message = models.CharField(max_length=255)
++    timestamp = models.DateTimeField(auto_now_add=True)
++
++    def __str__(self):
++        return self.alert_message
+diff --git a/myProject/myApp/static/notStyle.css b/myProject/myApp/static/notStyle.css
+index 34d2038..839076c 100644
+--- a/myProject/myApp/static/notStyle.css
++++ b/myProject/myApp/static/notStyle.css
+@@ -4,3 +4,75 @@
+     box-sizing: border-box;
+     font-family: 'Roboto', sans-serif;
+ }
++.container{
++    display: flex;
++    justify-content: center;
++    background-color: antiquewhite;
++    width: 100%;
++    height: 100vh;
++
++}
++.notificationContainer{
++    background-color: #fff;
++    width: 700px;
++    margin: 2rem;
++    padding: 1rem 1rem;
++    border-radius: 1rem;
++    margin-bottom: 20px;
++}
++header{
++    display: flex;
++    align-items: center;
++    justify-content: space-between;
++    margin-bottom: 2rem;  
++}
++.notificationHeader{
++    display: flex;
++    align-items: center;
++}
++#num-of-notif{
++    background-color: blue;
++    color: #fff;
++    display: flex;
++    align-items: center;
++    justify-content: center;
++    font-weight: 700;
++    width: 30px;
++    height: 30px;
++    border-radius: 0.5rem;
++    margin-left: 10px;
++}
++#mark-as-read{
++    color: gray;
++    cursor: pointer;
++    transition: 0.6s ease;
++}
++#mark-as-read:hover{
++    color: black;
++}
++main{
++    display: flex;
++    flex-direction: column;
++    gap: 1rem;
++}
++.notificationCard{
++    display: flex;
++    align-items: center;
++    padding: 1rem;
++    border-radius: 1rem;
++}
++.notificationCard img{
++    width: 50px;
++
++}
++.notificationCard .description{
++    margin-left: 10px;
++    display: flex;
++    justify-content: space-between;
++    flex-direction: column;
++    
++}
++.unread{
++    background-color: rgb(241, 182, 192);
++
++}
+\ No newline at end of file
+diff --git a/myProject/myApp/static/script.js b/myProject/myApp/static/script.js
+new file mode 100644
+index 0000000..7442fa8
+--- /dev/null
++++ b/myProject/myApp/static/script.js
+@@ -0,0 +1,22 @@
++const unReadMessages = document.querySelectorAll('.unread');
++const unReadMessagesCount = document.getElementById('num-of-notif');
++const markAll = document.getElementById('mark-as-read');
++
++unReadMessagesCount.innerText = unReadMessages.length;
++
++unReadMessages.forEach((message) => {
++    message.addEventListener('click', () => {
++        message.classList.remove('unread');
++        const newUnreadMessages = document.querySelectorAll('.unread');
++        unReadMessagesCount.innerText = newUnreadMessages.length;
++    });
++});
++
++// Mark as All read part
++markAll.addEventListener('click', () => {
++    unReadMessages.forEach((message) => {
++        message.classList.remove('unread');
++    });
++    const newUnreadMessages = document.querySelectorAll('.unread');
++    unReadMessagesCount.innerHTML = newUnreadMessages.length;
++});
+diff --git a/myProject/myApp/templates/myApp/notification.html b/myProject/myApp/templates/myApp/notification.html
+index fc84e3a..46a0f60 100644
+--- a/myProject/myApp/templates/myApp/notification.html
++++ b/myProject/myApp/templates/myApp/notification.html
+@@ -3,23 +3,35 @@
+ {% load static %}
+ {% block style %}
+ <link rel="stylesheet" href="{% static 'notStyle.css' %}">
++<style>
++    .notificationContainer {
++        max-height: 70vh; /* Set a maximum height */
++        overflow-y: auto; /* Enable vertical scrolling when content exceeds the maximum height */
++    }
++</style>
+ {% endblock %}
+ {% block content %}
+-<div class="notifi-box">
+-    <h2>Notification <span>2</span></h2> 
+-    <div class="notifi-item">
+-        <div class="text">
+-            <img src="{% static 'nabil.jpg' %}">
+-            <h4>Nabil</h4>
+-            <p>Hello</p>
+-        </div>
+-    </div>   
+-    <div class="notifi-item">
+-        <div class="text">
+-            <img src="{% static 'raha.jpg' %}">
+-            <h4>Raha</h4>
+-            <p>Hello</p>
+-        </div>
+-    </div>   
++<div class="container">
++    <div class="notificationContainer">
++        <header>
++          <div class="notificationHeader">
++            <h1>Notification</h1>
++            <span id="num-of-notif"></span>
++          </div>
++          <p id="mark-as-read">Mark as read</p>
++        </header>
++        <main>
++            {% for notification in notifications %}
++            <div class="notificationCard unread">
++                <img src="{% static 'logo.png' %}" alt="photo">
++                <div class="description">
++                    <p>{{ notification.alert_message }}</p>
++                    <p id="notif-time">{{ notification.timestamp }}</p>
++                </div>
++            </div>
++            {% endfor %}
++        </main>
++    </div>
+ </div>
++<script src="{% static 'script.js' %}"></script>
+ {% endblock %}
+\ No newline at end of file
+diff --git a/myProject/myApp/templates/myApp/profile.html b/myProject/myApp/templates/myApp/profile.html
+new file mode 100644
+index 0000000..9b21260
+--- /dev/null
++++ b/myProject/myApp/templates/myApp/profile.html
+@@ -0,0 +1,9 @@
++{% extends 'navigation_bar.html' %}
++
++{% block content %}
++  <h1>User Profile</h1>
++  <p>Username: {{ user.username }}</p>
++  <p>Email: {{ user.email }}</p>
++  <p>Bio: {{ user_profile.bio }}</p>
++  <!-- Add more fields as needed -->
++{% endblock %}
+diff --git a/myProject/myApp/templates/myApp/report.html b/myProject/myApp/templates/myApp/report.html
+index e1cd6d1..a5ce16e 100644
+--- a/myProject/myApp/templates/myApp/report.html
++++ b/myProject/myApp/templates/myApp/report.html
+@@ -27,7 +27,7 @@
+             </select>
+ 
+             <br><label for="Anonymity Status">Anonymity Status</label>
+-            <input type="checkbox" id="Anonymity Status" name="Anonymity Status" required>
++            <input type="checkbox" id="Anonymity Status" name="Anonymity Status">
+             <input type="submit" name="submit" class="send-btn" value="Send">
+         </form>
+     </div>
+diff --git a/myProject/myApp/urls.py b/myProject/myApp/urls.py
+index b942933..54c5747 100644
+--- a/myProject/myApp/urls.py
++++ b/myProject/myApp/urls.py
+@@ -18,4 +18,5 @@ urlpatterns = [
+     path("emergency/", views.emergency, name="emergency"),
+     path("report/", views.report, name="report"),
+     path("", views.register, name="register"),
++    
+ ]
+diff --git a/myProject/myApp/views.py b/myProject/myApp/views.py
+index 7de22c4..8dee9ad 100644
+--- a/myProject/myApp/views.py
++++ b/myProject/myApp/views.py
+@@ -18,6 +18,7 @@ def register(request):
+ 
+         if password != confirmpassword:
+             return JsonResponse({'message': 'Passwords do not match', 'alert_type': 'danger'})
++            redirect 
+ 
+         try:
+             if User.objects.get(username=username):
+@@ -33,7 +34,7 @@ def register(request):
+ 
+         myuser = User.objects.create_user(username, email, password)
+         myuser.save()
+-        return JsonResponse({'message': 'User is created. Please login', 'alert_type': 'success'})
++        return HttpResponseRedirect('http://127.0.0.1:8000/loginpage/')
+ 
+     context = {}
+     return render(request, "myApp/register.html", context)
+@@ -79,9 +80,9 @@ def contact(request):
+ 
+ 
+ def notification(request):
+-    context={}
+-    return render(request, "myApp/notification.html")
+-
++    notifications = Notification.objects.all()  # Retrieve all notifications
++    context = {'notifications': notifications}
++    return render(request, "myApp/notification.html", context)
+ 
+ def home(request):
+     context={}
+@@ -92,10 +93,6 @@ def emergency(request):
+     context={}
+     return render(request, "myApp/emergency.html")
+ 
+-from django.shortcuts import render, redirect
+-from django.http import JsonResponse
+-from .models import Location, CrimeType, IncidentReport
+-from django.contrib.auth.decorators import login_required
+ 
+ def report(request):
+     if request.method == 'POST':
+@@ -118,6 +115,13 @@ def report(request):
+         incident = IncidentReport(description=description, timestamp=timestamp, anonymity_status=anonymity_status, location=location, crime_type=crime_type)
+         incident.save()
+ 
++        if crime_type_name in ["Missing Person", "Prisoner Escape"]:
++            # Create a notification for all users
++            users = User.objects.all()
++            for user in users:
++                notification = Notification(crime_type=crime_type, alert_message=f"Incident reported: {description}", timestamp=incident.timestamp)
++                notification.save()
++
+         return JsonResponse({'message': 'Incident Report saved successfully', 'alert_type': 'success'})
+ 
+     # Get the available options for the dropdowns
+-- 
+2.42.0.windows.2
+
